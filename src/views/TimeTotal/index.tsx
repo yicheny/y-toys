@@ -1,7 +1,8 @@
 import React, {useCallback, useState} from 'react'
 import _ from 'lodash'
+import {TextArea} from "../../components";
 
-export default function TimeTotal():React.ReactElement{
+export default function TimeTotal():JSX.Element{
     const [totalData,setTotalData] = useState<Total>();
 
     const handleChange = useCallback((e)=>{
@@ -9,7 +10,7 @@ export default function TimeTotal():React.ReactElement{
     },[])
 
     return <div>
-        <textarea style={{width:480,height:320}} onChange={handleChange}/>
+        <TextArea style={{width:480,height:320}} onChange={handleChange}/>
         <div>
             {_.map(totalData?.totalInfo(),(x,i)=>{
                 return <div key={i}>
@@ -52,9 +53,9 @@ class Total{
         const monthData = this.totalWithCount(30);
         const weekData = this.totalWithCount(7);
         return [
-            `本年度学习时间共计${yearData.accTimes}小时，本年度平均每日学习时间${yearData.aveTime}小时;`,
-            `本月学习时间共计${monthData.accTimes}小时，本月平均每日学习时间${monthData.aveTime}小时;`,
-            `本周学习时间共计${weekData.accTimes}小时，本周平均每日学习时间${weekData.aveTime}小时;`,
+            `今年学习时间共计${yearData.accTimes}小时，今年平均每日学习时间${yearData.aveTime}小时;`,
+            `最近一月学习时间共计${monthData.accTimes}小时，最近一月平均每日学习时间${monthData.aveTime}小时;`,
+            `最近一周学习时间共计${weekData.accTimes}小时，最近一周平均每日学习时间${weekData.aveTime}小时;`,
         ]
     }
 

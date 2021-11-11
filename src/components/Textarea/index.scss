@@ -1,0 +1,13 @@
+.c-textarea{
+  border:#cdcdcd 1px solid;
+  outline: none;
+  border-radius: 4px;
+  box-sizing: border-box;
+  padding:8px 12px;
+
+  &:focus{
+    border-color:rgba(0,191,255,0.72);
+    box-shadow: 4px 4px 12px rgba(0,191,255,0.25);
+    transition:all 0.25s ease-in;
+  }
+}
