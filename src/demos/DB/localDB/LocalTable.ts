@@ -1,16 +1,17 @@
 import {Nullable} from "../../../types";
-import _ from "lodash";
+import _, {forEach} from "lodash";
 import {filedValue, LocalDB, record} from "./LocalDB";
 
 //暂时不需要支持回调类型的函数
 // type FCondition = (record:record)=>boolean;
 
-//TODO 考虑是否添加一个API用于约定数据结构
+//TODO 考虑是否添加一个API用于约定数据结构--否决--由上层调用的人约束
 export interface ILocalTableOptions{
     name:string,
     primaryKey:string
 }
 
+//TODO 全部改成异步方法
 export interface ITable{
     addOne(record:record):void,
     addMany(record:record[]):void,
@@ -21,7 +22,8 @@ export interface ITable{
     selectOne(value:filedValue):Nullable<record>,
     selectMany(values:filedValue[]):Array<record>,
     selectAll():Array<record>,
-    set(data:record | record[]):void,
+    setOne(data:record):void,
+    setMany(data:record[]):void,
     clear():void,
 }
 
@@ -65,8 +67,21 @@ export class LocalTable implements ITable{
     }
 
     //如果没有对应主键，则插入；如果存在对应主键，则更新
-    set(data:record | record[]){
+    setOne(data:record){
+        if(this.getKeyMap().has(data[this.currentIndexKey])) return this.updateOne(data)
+        this.addOne(data);
+    }
 
+    //如果没有对应主键，则插入；如果存在对应主键，则更新
+    setMany(data:record[]){
+        data.forEach((r)=>this.setOne(r));
+    }
+
+    private getKeyMap(){
+        return this.records.reduce((acc,record)=>{
+            acc.set(record[this.currentIndexKey],record);
+            return acc;
+        },new Map())
     }
 
     private checkUniqKey(record:record):void{

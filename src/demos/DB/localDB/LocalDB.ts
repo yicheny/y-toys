@@ -8,6 +8,7 @@ export type record = {
 // type filed = string;
 export type filedValue = any;
 
+//TODO 全部改成异步方法
 interface IDB{
     get(key:string):record[],
     set(key:string,value:record[]):void,

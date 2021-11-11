@@ -2,6 +2,7 @@ import {LocalDB} from "./LocalDB";
 import {mockStorage} from "../../base";
 import {assert} from "chai";
 
+//注：对于数据量的测试，需要在实际的浏览器对象中操作【localStorage,SessionStorage】
 describe('localTable',()=>{
     const localDB = LocalDB.create({storage:mockStorage});
     const localTable = localDB.createTable({name:"user",primaryKey:"id"})
@@ -53,10 +54,6 @@ describe('localTable',()=>{
         assert.deepEqual([{id:2,key:20},{id:3,key:30}],localTable.selectMany([2,3]));
     })
 
-    it("set",()=>{
-        //TODO 待添加测试
-    })
-
     it("deleteOne",()=>{
         localTable.deleteOne(1);
         assert.deepEqual([{id:2,key:20},{id:3,key:30}],localTable.selectAll())
@@ -67,8 +64,32 @@ describe('localTable',()=>{
         assert.isEmpty(localTable.selectAll());
     })
 
+    describe("setOne",()=>{
+        it("不存在，则添加",()=>{
+            localTable.setOne({id:5,key:5});
+            assert.deepEqual({id:5,key:5},localTable.selectOne(5))
+        })
+
+        it("存在，则更新",()=>{
+            localTable.setOne({id:5,key:50});
+            assert.deepEqual({id:5,key:50},localTable.selectOne(5))
+        })
+    })
+
+    describe("setMany",()=>{
+        it("不存在，则添加",()=>{
+            localTable.setMany([{id:6,key:6},{id:7,key:7}]);
+            assert.deepEqual([{id:6,key:6},{id:7,key:7}],localTable.selectMany([6,7]))
+        })
+
+        it("存在，则更新",()=>{
+            localTable.setMany([{id:6,key:60},{id:7,key:70}]);
+            assert.deepEqual([{id:6,key:60},{id:7,key:70}],localTable.selectMany([6,7]))
+        })
+    })
+
     it("clear",()=>{
-        localTable.addOne({id:1,key:1})
+        localTable.addOne({id:10,key:100})
         localTable.clear()
         assert.isEmpty(localTable.selectAll())
     })
