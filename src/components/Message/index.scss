@@ -1,0 +1,42 @@
+.c-message-box{
+  position:fixed;
+  top:42px;
+  left:50%;
+  width: initial;
+  transform: translate(-50%,0%);
+  display: flex;
+  justify-content: center;
+}
+
+.c-message-item{
+  margin:8px 12px;
+  padding:6px 20px;
+  //color:rgba(255,255,255,1);
+  //background: rgba(0,0,0,0.56)
+  background: #fff;
+  border:1px solid rgba(0,0,0,0.04);
+  box-shadow: 4px 4px 16px rgba(0,0,0,0.09);
+  border-radius: 6px;
+  transform: translateY(0%);
+  animation: 4500ms linear 0s 1 normal none running spin;
+
+  @keyframes spin{
+    0% {
+      opacity: 1;
+      transform: translateY(0%);
+    }
+    10%{
+      opacity: 1;
+      transform: translateY(-50%);
+    }
+    90%{
+      opacity: 1;
+      transform: translateY(-50%);
+    }
+    100%{
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+  }
+}
+

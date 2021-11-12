@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from 'react'
 import _ from 'lodash'
-import {TextArea,Button} from "../../components";
+import {TextArea,Button,message} from "../../components";
 import Total from "./Total";
 import Box from "./Box";
 import styles from './index.module.scss'
@@ -33,11 +33,12 @@ export default function TimeTotal():JSX.Element{
 
     const save = useCallback(()=>{
         store.save(totalData.getSource())
-        alert('存储成功！')
+        message.show('存储成功！')
     },[totalData])
 
     const read = useCallback(()=>{
         setTotalData(new Total(store.read()))
+        message.show('读取成功！')
     },[])
 
     return <Box>
