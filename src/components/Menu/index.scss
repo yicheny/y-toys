@@ -1,0 +1,9 @@
+.c-menu{
+  background: #fff;
+  &-item{
+    margin:8px 12px;
+    >a{
+      text-decoration: none;
+    }
+  }
+}

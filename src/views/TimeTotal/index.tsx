@@ -1,16 +1,48 @@
 import React, {useCallback, useState} from 'react'
 import _ from 'lodash'
 import {TextArea} from "../../components";
+import Total from "./Total";
+import Box from "./Box";
+
+class Store{
+    private readonly _key: string;
+    private readonly _storage = sessionStorage;
+
+    constructor(key:string) {
+        this._key = key;
+    }
+
+    public save(data:string){
+        this._storage.setItem(this._key,data)
+    }
+
+    public read(){
+        return this._storage.getItem(this._key) || ''
+    }
+}
+
+const store = new Store('time-total')
 
 export default function TimeTotal():JSX.Element{
-    const [totalData,setTotalData] = useState<Total>();
+    const [totalData,setTotalData] = useState<Total>(new Total(''));
 
     const handleChange = useCallback((e)=>{
         setTotalData(new Total(e.target.value))
     },[])
 
-    return <div>
-        <TextArea style={{width:480,height:320}} onChange={handleChange}/>
+    const save = useCallback(()=>{
+        store.save(totalData.getSource())
+        alert('存储成功！')
+    },[totalData])
+
+    const read = useCallback(()=>{
+        setTotalData(new Total(store.read()))
+    },[])
+
+    return <Box>
+        <TextArea style={{width:480,height:320}} onChange={handleChange} value={totalData.getSource()}/>
+        <button onClick={save}>存储</button>
+        <button onClick={read}>读取</button>
         <div>
             {_.map(totalData?.totalInfo(),(x,i)=>{
                 return <div key={i}>
@@ -18,57 +50,5 @@ export default function TimeTotal():JSX.Element{
                 </div>
             })}
         </div>
-    </div>
-}
-
-type OneDayDict = {
-    date:string,
-    time:number,
-    info:string
-}
-
-class Total{
-    private readonly _source: string;
-    private readonly _data: OneDayDict[];
-
-    constructor(source:string) {
-        this._source = source;
-        this._data = this.getData();
-    }
-
-    private getData(){
-        const oneDayInfos = this._source.split('\n').filter(x=>x.trim()!=='');
-        return _.map(oneDayInfos,(oneDayInfo:string)=>{
-            const [date,time,info] = _.split(oneDayInfo,'===')
-            return {
-                date,
-                time:_.toNumber(time),
-                info
-            }
-        });
-    }
-
-    public totalInfo(){
-        const yearData = this.totalWithCount(this._data.length)
-        const monthData = this.totalWithCount(30);
-        const weekData = this.totalWithCount(7);
-        return [
-            `今年学习时间共计${yearData.accTimes}小时，今年平均每日学习时间${yearData.aveTime}小时;`,
-            `最近一月学习时间共计${monthData.accTimes}小时，最近一月平均每日学习时间${monthData.aveTime}小时;`,
-            `最近一周学习时间共计${weekData.accTimes}小时，最近一周平均每日学习时间${weekData.aveTime}小时;`,
-        ]
-    }
-
-    private totalWithCount(count:number){
-        const list = this._data.slice(-1 * count);
-        const accTimes = _.reduce(list,(acc,x)=>acc+x.time,0);
-        return {
-            accTimes:transformToHour(accTimes),
-            aveTime:transformToHour(accTimes/count)
-        }
-    }
-}
-
-function transformToHour(time:number){
-    return (time/60).toFixed(2)
+    </Box>
 }
