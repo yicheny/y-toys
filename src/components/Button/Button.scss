@@ -1,0 +1,15 @@
+.c-button{
+  margin:4px;
+  padding:6px 20px;
+  //border:1px solid rgba(0,0,0,0.1);
+  color:#fff;
+  background: rgba(30,144,255,1);
+  border-radius: 6px;
+  box-shadow: 3px 3px 8px rgba(30,144,255,0.32);
+  cursor:pointer;
+  transition: box-shadow 200ms ease-in;
+
+  &:hover{
+    box-shadow: 3px 3px 12px rgba(30,144,255,0.72);
+  }
+}

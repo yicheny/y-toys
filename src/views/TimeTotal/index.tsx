@@ -1,8 +1,9 @@
 import React, {useCallback, useState} from 'react'
 import _ from 'lodash'
-import {TextArea} from "../../components";
+import {TextArea,Button} from "../../components";
 import Total from "./Total";
 import Box from "./Box";
+import styles from './index.module.scss'
 
 class Store{
     private readonly _key: string;
@@ -41,8 +42,10 @@ export default function TimeTotal():JSX.Element{
 
     return <Box>
         <TextArea style={{width:480,height:320}} onChange={handleChange} value={totalData.getSource()}/>
-        <button onClick={save}>存储</button>
-        <button onClick={read}>读取</button>
+        <div className={styles.buttonGroup}>
+            <Button onClick={save}>存储</Button>
+            <Button onClick={read}>读取</Button>
+        </div>
         <div>
             {_.map(totalData?.totalInfo(),(x,i)=>{
                 return <div key={i}>
