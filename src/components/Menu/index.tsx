@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import './index.scss'
 import clsx from "clsx";
 
@@ -15,11 +15,16 @@ interface MenuProps{
 }
 
 export default function Menu(props:MenuProps):JSX.Element{
+    const {pathname} = useLocation();
+    const navigate = useNavigate()
+
     return <div className={clsx('c-menu',props.className)} style={props.style}>
         {
             props.options.map((option,key) => {
-                return <div className='c-menu-item' key={key}>
-                    <Link to={option.to}>{option.text}</Link>
+                return <div className={clsx('c-menu-item',{current:pathname===option.to})}
+                            onClick={()=>navigate(option.to)}
+                            key={key}>
+                    {option.text}
                 </div>
             })
         }
