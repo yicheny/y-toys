@@ -1,32 +1,10 @@
 import React, {useMemo} from 'react';
 import styles from './BookCover.module.scss'
 import Label from "./Label";
-
-type Option = {
-    title:string,
-    chapters:Chapter[]
-}
-
-type Chapter = {
-    title:string,
-    KPoints:KPoint[]
-}
-
-export enum masterEnum {
-    empty,
-    half,
-    full
-}
-
-type KPoint = {
-    question:string,
-    answer:string,
-    //掌握程度
-    master:masterEnum
-}
+import {BookOption,masterEnum,KPoint} from './Book'
 
 interface BookCoverProps{
-    option:Option,
+    option:BookOption,
     onClick:React.MouseEventHandler<HTMLDivElement>
 }
 
@@ -49,7 +27,7 @@ const BookCover:React.FC<BookCoverProps> = function (props){
 
 export default BookCover;
 
-function useTotal(option:Option){
+function useTotal(option:BookOption){
     return useMemo(()=>{
         const KPoints = flatKPoints();
         return {

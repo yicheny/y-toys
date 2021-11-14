@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import _ from 'lodash';
 import {Button,message} from "../../components";
 import styles from './index.module.scss';
 import BookCover from "./BookCover";
+import Book, {BookOption} from "./Book";
+import {Nullable} from "../../types";
 
 const mockData = _.times(50, x => {
     return {
@@ -23,6 +25,7 @@ const mockData = _.times(50, x => {
 })
 
 function KnowledgeReview() {
+    const [bookOption,setBookOption] = useState<Nullable<BookOption>>()
     return (<div className={styles.view}>
         <div className={styles.operate}>
             <Button onClick={() => message.show('此功能正在开发中！')}>导入新书</Button>
@@ -31,10 +34,13 @@ function KnowledgeReview() {
         <div className={styles.books}>
             {
                 _.map(mockData,(k,i)=>{
-                    return <BookCover key={i} option={k} onClick={()=>message.show("点击打开详情页开发中！")}/>
+                    return <BookCover key={i} option={k} onClick={()=>setBookOption(k)}/>
                 })
             }
         </div>
+        {
+            bookOption && <Book close={()=>setBookOption(null)}/>
+        }
     </div>);
 }
 

@@ -1,0 +1,32 @@
+.bookContainer{
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background: rgba(0,0,0,0.32);
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.book{
+  width:960px;
+  height:630px;
+  //border:1px solid rgba(0,0,0,0.09);
+  border-radius: 4px;
+  background: rgba(254,225,167);
+}
+
+.header{
+
+}
+
+.content{
+
+}
+
+.footer{
+
+}
