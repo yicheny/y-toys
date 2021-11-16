@@ -9,12 +9,12 @@ import {Nullable} from "../../types";
 const mockData = _.times(50, x => {
     return {
         title:`书籍${x+1}`,
-        chapters:_.times(_.random(1,30),(c)=>{
+        chapters:_.times(_.random(1,25),(c)=>{
             return {
                 title:`章节${c+1}`,
-                KPoints:_.times(_.random(1,40),(k)=>{
+                KPoints:_.times(_.random(1,5),(k)=>{
                     return {
-                        question:`知识点${k+1}`,
+                        question:`章节${c+1},知识点${k+1}`,
                         answer:`答案${k+1}`,
                         master:_.random(2)
                     }
@@ -25,11 +25,11 @@ const mockData = _.times(50, x => {
 })
 
 function KnowledgeReview() {
-    const [bookOption,setBookOption] = useState<Nullable<BookOption>>()
+    const [bookOption,setBookOption] = useState<Nullable<BookOption>>(mockData[0])
     return (<div className={styles.view}>
         <div className={styles.operate}>
             <Button onClick={() => message.show('此功能正在开发中！')}>导入新书</Button>
-            <Button onClick={() => message.show('此功能正在开发中！')}>更新资料</Button>
+            {/*<Button onClick={() => message.show('此功能正在开发中！')}>更新资料</Button>*/}
         </div>
         <div className={styles.books}>
             {
@@ -39,7 +39,7 @@ function KnowledgeReview() {
             }
         </div>
         {
-            bookOption && <Book close={()=>setBookOption(null)}/>
+            bookOption && <Book option={bookOption} close={()=>setBookOption(null)}/>
         }
     </div>);
 }
