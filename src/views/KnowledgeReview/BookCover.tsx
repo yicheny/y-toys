@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react';
 import styles from './BookCover.module.scss'
 import Label from "./Label";
-import {BookOption,masterEnum,KPoint} from './Book'
+import {BookOption,masterEnum,KPoint} from './Book/Book'
 
 interface BookCoverProps{
     option:BookOption,

@@ -31,32 +31,13 @@
 
 .content {
   //padding:12px;
+  overflow: hidden;
   flex:1;
   display: flex;
-  .contentMain{
-    padding:8px;
-  }
 }
 
 .footer {
 
-}
-
-
-.menu{
-  width:280px;
-  border-right: 1px solid rgba(0,0,0,0.12);
-  .menuItem{
-    padding:6px 12px;
-  }
-
-  .menuMain{
-
-  }
-
-  .menuBtn{
-
-  }
 }
 
 

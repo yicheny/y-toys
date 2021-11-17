@@ -3,7 +3,7 @@ import _ from 'lodash';
 import {Button,message} from "../../components";
 import styles from './index.module.scss';
 import BookCover from "./BookCover";
-import Book, {BookOption} from "./Book";
+import Book, {BookOption} from "./Book/Book";
 import {Nullable} from "../../types";
 
 const mockData = _.times(50, x => {

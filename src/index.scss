@@ -11,17 +11,18 @@ html,body{
 ::-webkit-scrollbar-thumb {
   /*滚动条里面小方块*/
   border-radius   : 10px;
-  background-color: skyblue;
-  background-image: -webkit-linear-gradient(
-                  45deg,
-                  rgba(255, 255, 255, 0.2) 25%,
-                  transparent 25%,
-                  transparent 50%,
-                  rgba(255, 255, 255, 0.2) 50%,
-                  rgba(255, 255, 255, 0.2) 75%,
-                  transparent 75%,
-                  transparent
-  );
+  background: rgba(180,180,180,0.36);
+  //background-color: skyblue;
+  //background-image: -webkit-linear-gradient(
+  //                45deg,
+  //                rgba(255, 255, 255, 0.2) 25%,
+  //                transparent 25%,
+  //                transparent 50%,
+  //                rgba(255, 255, 255, 0.2) 50%,
+  //                rgba(255, 255, 255, 0.2) 75%,
+  //                transparent 75%,
+  //                transparent
+  //);
 }
 ::-webkit-scrollbar-track {
   /*滚动条里面轨道*/

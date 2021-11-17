@@ -1,15 +1,17 @@
 import React, {useCallback, useMemo, useRef, useState} from "react";
 import styles from './Book.module.scss'
-import {useOutsideClick} from "../../hooks";
+import {useOutsideClick} from "../../../hooks";
 import _ from 'lodash'
-import {Button, Icon, message} from "../../components";
+import {Button, message} from "../../../components";
+import BookMenu from "./BookMenu";
+import BookCore from "./BookCore";
 
 export type BookOption = {
     title: string,
     chapters: Chapter[]
 }
 
-type Chapter = {
+export type Chapter = {
     title: string,
     KPoints: KPoint[]
 }
@@ -48,9 +50,7 @@ const Book: React.FC<BookProps> = function (props) {
             </div>
             <div className={styles.content}>
                 <BookMenu chapters={props.option.chapters}/>
-                <div className={styles.contentMain}>
-                    {currentPoint.question}
-                </div>
+                <BookCore KPoint={currentPoint}/>
             </div>
             <div className={styles.footer}> </div>
         </div>
@@ -58,26 +58,6 @@ const Book: React.FC<BookProps> = function (props) {
 }
 
 export default Book;
-
-interface BookMenuProps{
-    chapters: Chapter[]
-}
-const BookMenu:React.FC<BookMenuProps> = function (props){
-    return <div className={styles.menu}>
-        <div className={styles.menuMain}>
-            {
-                props.chapters.map((x,i)=>{
-                    return <div className={styles.menuItem} key={i}>
-                        {x.title}
-                    </div>
-                })
-            }
-        </div>
-        {/*<div className={styles.menuBtn}>
-            <Icon name='fixed' size={24}/>
-        </div>*/}
-    </div>
-}
 
 type PointRecord = {
     chapter: number,
