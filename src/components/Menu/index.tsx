@@ -19,8 +19,8 @@ interface MenuProps{
 export default function Menu(props:MenuProps):JSX.Element{
     const {pathname} = useLocation();
     const navigate = useNavigate();
-    const [shrink,setShrink] = useState<boolean>(true);
-    const [autoShrink,setAutoShrink] = useState<boolean>(true);
+    const [shrink,setShrink] = useState<boolean>(false);
+    const [autoShrink,setAutoShrink] = useState<boolean>(false);
 
     const autoShrinkHandle = useCallback((x)=>{
         if(x<=248){
