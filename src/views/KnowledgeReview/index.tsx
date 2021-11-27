@@ -14,7 +14,7 @@ const mockData = _.times(50, x => {
                 title:`章节${c+1}`,
                 KPoints:_.times(_.random(1,5),(k)=>{
                     return {
-                        question:`章节${c+1},知识点${k+1}`,
+                        question:`mock question [${c+1},${k+1}]`,
                         answer:`答案${k+1}`,
                         master:_.random(2)
                     }
