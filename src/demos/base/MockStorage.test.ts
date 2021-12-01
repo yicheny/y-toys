@@ -9,8 +9,8 @@ describe('mockStorage',()=>{
     it("setItem",()=>{
         mockStorage.setItem('user',JSON.stringify({id:1,key:1}))
         mockStorage.setItem('test',JSON.stringify({id:2,key:2}))
-        assert.deepEqual(JSON.stringify({id:1,key:1}),mockStorage.getItem('user'))
-        assert.deepEqual(JSON.stringify({id:2,key:2}),mockStorage.getItem('test'))
+        assert.equal(JSON.stringify({id:1,key:1}),mockStorage.getItem('user'))
+        assert.equal(JSON.stringify({id:2,key:2}),mockStorage.getItem('test'))
     })
 
     it("removeItem",()=>{

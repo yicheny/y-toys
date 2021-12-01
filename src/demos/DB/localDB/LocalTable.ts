@@ -5,6 +5,7 @@ import {filedValue, LocalDB, record} from "./LocalDB";
 //暂时不需要支持回调类型的函数
 // type FCondition = (record:record)=>boolean;
 
+//TODO 考虑是否添加一个API用于约定数据结构
 export interface ILocalTableOptions{
     name:string,
     primaryKey:string
@@ -18,7 +19,8 @@ export interface ITable{
     updateOne(record:record):void,
     updateMany(records:record[]):void,
     selectOne(value:filedValue):Nullable<record>,
-    selectMany(values:filedValue[]):Nullable<Array<record>>
+    selectMany(values:filedValue[]):Array<record>,
+    selectAll():Array<record>,
     set(data:record | record[]):void,
     clear():void,
 }
@@ -52,21 +54,25 @@ export class LocalTable implements ITable{
         return result || null;
     }
 
-    selectMany(values:filedValue[]): Nullable<record[]> {
+    selectMany(values:filedValue[]): record[] {
         return this.records.filter((record:record)=>{
             return values.includes(record[this.currentIndexKey])
         })
     }
 
+    selectAll(): record[] {
+        return this.records;
+    }
+
     //如果没有对应主键，则插入；如果存在对应主键，则更新
     set(data:record | record[]){
-        throw new Error('待实现！')
+
     }
 
     private checkUniqKey(record:record):void{
         const currentIndex = record[this.currentIndexKey];
         this.records.forEach((record)=>{
-            if(record[this.currentIndexKey] === currentIndex) throw new Error(`当前插入项，主键${currentIndex}已存在，插入失败！`)
+            if(record[this.currentIndexKey] === currentIndex) throw new Error(`当前插入项，当前索引键${this.currentIndexKey}值为${currentIndex}已存在，插入失败！`)
         })
     }
 
@@ -86,8 +92,8 @@ export class LocalTable implements ITable{
 
     addMany(records: record[]): void {
         const keySet = this.getKeySetWithCheck(records, '插入');
-        records.forEach(record => {
-            if(keySet.has(record[this.currentIndexKey])) throw new Error(`当前传入数组，与原本的记录主键冲突，插入失败！`)
+        this.records.forEach(record => {
+            if(keySet.has(record[this.currentIndexKey])) throw new Error(`当前传入数组，与原本的表记录索引冲突，插入失败！`)
         })
         const list = this.records.concat(records);
         this.setRecords(list)

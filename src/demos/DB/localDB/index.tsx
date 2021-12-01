@@ -23,7 +23,7 @@ function main(){
 
     function createTest(){
         const db = LocalDB.create({})
-        const id_key_table = db.createStore({
+        const id_key_table = db.createTable({
             name:'user_key',
             primaryKey: "id",
         });

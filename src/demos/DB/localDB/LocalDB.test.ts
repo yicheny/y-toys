@@ -2,20 +2,20 @@ import {assert} from 'chai';
 import {LocalDB} from "./LocalDB";
 import {mockStorage} from '../../base';
 
-describe('mockStorage',()=>{
+describe('localDB',()=>{
     const localDB = LocalDB.create({storage:mockStorage})
-    it("getItem",()=>{
+    it("get",()=>{
         assert.isEmpty(localDB.get('user'))
     })
 
-    it("setItem",()=>{
+    it("set",()=>{
         localDB.set('user',[{id:1,key:1}])
         localDB.set('test',[{id:2,key:2}])
         assert.deepEqual([{id:1,key:1}],localDB.get('user'))
         assert.deepEqual([{id:2,key:2}],localDB.get('test'))
     })
 
-    it("removeItem",()=>{
+    it("remove",()=>{
         localDB.remove('user')
         assert.isEmpty(localDB.get('user'))
     })
@@ -23,5 +23,9 @@ describe('mockStorage',()=>{
     it('clear',()=>{
         localDB.clear()
         assert.isTrue(mockStorage.isEmpty())
+    })
+
+    it("createStore",()=>{
+
     })
 })

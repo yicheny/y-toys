@@ -49,11 +49,11 @@ export class LocalDB implements IDB{
         this.storage.removeItem(key)
     }
 
-    createStore(options:ILocalTableOptions){
+    createTable(options:ILocalTableOptions){
         return new LocalTable(this,options)
     }
 
-    createStores(keys:string[]){
+    createTables(keys:string[]){
         throw new Error("待实现！")
     }
 }
