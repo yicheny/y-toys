@@ -1,4 +1,4 @@
-import mockStorage from "./MockStorage";
+import {mockStorage} from "./MockStorage";
 import {assert} from 'chai';
 
 describe('mockStorage',()=>{

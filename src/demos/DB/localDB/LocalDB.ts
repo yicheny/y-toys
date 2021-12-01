@@ -1,5 +1,6 @@
 import _ from "lodash";
 import {ILocalTableOptions, LocalTable} from "./LocalTable";
+import {Storage} from '../../base'
 
 export type record = {
     [key:string]:any

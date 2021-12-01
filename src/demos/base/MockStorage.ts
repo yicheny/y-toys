@@ -1,5 +1,12 @@
 import {Nullable} from "../../types";
 
+export abstract class Storage{
+    abstract getItem(key:string):Nullable<string>;
+    abstract setItem(key:string,value:string):void;
+    abstract removeItem(key:string):void;
+    abstract clear():void;
+}
+
 class MockStorage extends Storage{
     private static _storage = new Map()
 
@@ -24,5 +31,4 @@ class MockStorage extends Storage{
     }
 }
 
-const mockStorage = new MockStorage();
-export default  mockStorage;
+export const mockStorage = new MockStorage();
