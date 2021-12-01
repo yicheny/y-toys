@@ -3,7 +3,8 @@ import _ from "lodash";
 type record = {
     [key:string]:any
 };
-type filed = any;
+// type filed = string;
+type filedValue = any;
 type Nullable<T> = T | null;
 
 interface IDB{
@@ -63,12 +64,12 @@ class LocalDB implements IDB{
 interface ITable{
     addOne(record:record):void,
     addMany(record:record[]):void,
-    deleteOne(value:filed): void,
-    deleteMany(values:filed[]): void,
+    deleteOne(value:filedValue): void,
+    deleteMany(values:filedValue[]): void,
     updateOne(record:record):void,
     updateMany(records:record[]):void,
-    selectOne(value:filed):Nullable<record>,
-    selectMany(values:filed[]):Nullable<Array<record>>
+    selectOne(value:filedValue):Nullable<record>,
+    selectMany(values:filedValue[]):Nullable<Array<record>>
     set(data:record | record[]):void,
     clear():void,
 }
@@ -95,14 +96,14 @@ class LocalTable implements ITable{
         this.db.set(this.name,records)
     }
 
-    selectOne(value:filed): Nullable<record> {
+    selectOne(value:filedValue): Nullable<record> {
         const result = this.records.find((record:record)=>{
-            return record[this.currentIndexKey] = value;
+            return record[this.currentIndexKey] === value;
         })
         return result || null;
     }
 
-    selectMany(values:filed[]): Nullable<record[]> {
+    selectMany(values:filedValue[]): Nullable<record[]> {
         return this.records.filter((record:record)=>{
             return values.includes(record[this.currentIndexKey])
         })
@@ -127,27 +128,28 @@ class LocalTable implements ITable{
         this.setRecords(list)
     }
 
-    private checkUniqKeys(records:record[]){
+    private getKeySetWithCheck(records:record[],keyword:string){
         const keys = records.map(record => record[this.primaryKey]);
-        const keysSet = new Set(keys);
-        if(keys.length !== keysSet.size) throw new Error("当前传入数组内部记录主键不唯一，插入失败！")
-        records.forEach(record => {
-            if(keysSet.has(record[this.currentIndexKey])) throw new Error("当前传入数组，与原本的记录主键冲突，插入失败！")
-        })
+        const keySet = new Set(keys);
+        if(keys.length !== keySet.size) throw new Error(`当前传入数组内部记录主键不唯一，${keyword}失败！`)
+        return keySet
     }
 
     addMany(records: record[]): void {
-        this.checkUniqKeys(records);
+        const keySet = this.getKeySetWithCheck(records, '插入');
+        records.forEach(record => {
+            if(keySet.has(record[this.currentIndexKey])) throw new Error(`当前传入数组，与原本的记录主键冲突，插入失败！`)
+        })
         const list = this.records.concat(records);
         this.setRecords(list)
     }
 
-    deleteOne(value: filed) {
+    deleteOne(value: filedValue) {
         const result = this.records.filter(record => record[this.currentIndexKey] !== value);
         this.setRecords(result);
     }
 
-    deleteMany(values: filed[]) {
+    deleteMany(values: filedValue[]) {
         const result = this.records.filter(record =>  !values.includes(record[this.currentIndexKey]));
         this.setRecords(result);
     }
@@ -157,11 +159,28 @@ class LocalTable implements ITable{
     }
 
     updateMany(records: record[]): void {
+        this.getKeySetWithCheck(records, '更新');
 
+        const recordMap = this.records.reduce((acc,record)=>{
+            acc.set(record[this.currentIndexKey],record)
+            return acc;
+        }, new Map())
+
+        records.forEach(record=>{
+            const currentIndex = record[this.currentIndexKey];
+            const item = recordMap.get(currentIndex);
+            if(item) recordMap.set(currentIndex,_.assign(item,record));
+        })
+
+        this.setRecords([...recordMap.values()])
     }
 
     updateOne(record: record): void {
-
+        const currentIndex = record[this.currentIndexKey];
+        const result = this.records.map((item)=>{
+            return item[this.currentIndexKey] === currentIndex ? _.assign(item,record) :  item;
+        })
+        this.setRecords(result)
     }
 }
 
