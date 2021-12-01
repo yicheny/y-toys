@@ -10,7 +10,7 @@ export interface ILocalTableOptions{
     primaryKey:string
 }
 
-interface ITable{
+export interface ITable{
     addOne(record:record):void,
     addMany(record:record[]):void,
     deleteOne(value:filedValue): void,
