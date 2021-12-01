@@ -84,23 +84,28 @@ class IndexDB {
     }
 }
 
-const db = new IndexDB({
-    dbName:"ylf_db",
-    version:2,
-    storeNames:[
-      'store1',
-      'store2'
-    ]
-});
 
-db.getStore('store2').then(store=>{
-    store.add({value:1,children:{value:1}})
-    store.add({value:2})
-    store.add({value:3})
-})
 
 export default function IndexDBDemo() {
     return (<div>
         IndexDBDemo
     </div>)
 };
+
+function main(){
+    const db = new IndexDB({
+        dbName:"ylf_db",
+        version:2,
+        storeNames:[
+            'store1',
+            'store2'
+        ]
+    });
+
+    db.getStore('store2').then(store=>{
+        store.add({value:1,children:{value:1}})
+        store.add({value:2})
+        store.add({value:3})
+    })
+}
+

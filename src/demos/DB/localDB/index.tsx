@@ -1,5 +1,5 @@
 import React from "react";
-import createDB from "./LocalDB";
+import {LocalDB} from "./LocalDB";
 
 main();
 
@@ -22,7 +22,7 @@ function main(){
     // test.clear();
 
     function createTest(){
-        const db = createDB();
+        const db = LocalDB.create({})
         const id_key_table = db.createStore({
             name:'user_key',
             primaryKey: "id",
