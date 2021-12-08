@@ -8,6 +8,7 @@
   box-shadow: 3px 3px 8px rgba(30,144,255,0.32);
   cursor:pointer;
   transition: box-shadow 200ms ease-in;
+  user-select: none;
 
   &:hover{
     box-shadow: 3px 3px 12px rgba(30,144,255,0.72);

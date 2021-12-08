@@ -1,0 +1,35 @@
+.c-radio {
+  margin:0 4px;
+  display: inline-flex;
+  align-items: center;
+  cursor:pointer;
+  &-icon {
+    display: inline-flex;
+    margin:4px;
+    width: 16px;
+    height: 16px;
+    border:1px solid rgba(0,0,0,0.12);
+    border-radius: 50%;
+  }
+
+  &-text {
+
+  }
+
+  &.active{
+    .c-radio-icon{
+      border-color:rgba(30,144,255,1);
+      position: relative;
+      &::before{
+        position: absolute;
+        content: '';
+        top:4px;
+        left:4px;
+        width:8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(30,144,255,1);
+      }
+    }
+  }
+}

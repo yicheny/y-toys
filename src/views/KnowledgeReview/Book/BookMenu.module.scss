@@ -4,13 +4,30 @@
   overflow: auto;
 
   .item{
-    padding:6px 12px;
+    padding:0 12px;
   }
 
   .main{
+
   }
+}
 
-  .btnGroup{
+.subMenu{
+  .subItem{
+    padding:6px 4px 6px 24px;
+    cursor:pointer;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    user-select: none;
 
+    &:hover{
+      background: rgba(0,0,0,0.10);
+    }
+
+    &.active{
+      color:#fff;
+      background: rgba(0,0,0,0.21);
+    }
   }
 }

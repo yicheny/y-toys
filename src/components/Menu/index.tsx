@@ -16,11 +16,13 @@ interface MenuProps{
     style?:React.CSSProperties
 }
 
+const INITIAL_STATE = false;
+
 export default function Menu(props:MenuProps):JSX.Element{
     const {pathname} = useLocation();
     const navigate = useNavigate();
-    const [shrink,setShrink] = useState<boolean>(true);
-    const [autoShrink,setAutoShrink] = useState<boolean>(true);
+    const [shrink,setShrink] = useState<boolean>(INITIAL_STATE);
+    const [autoShrink,setAutoShrink] = useState<boolean>(INITIAL_STATE);
 
     const autoShrinkHandle = useCallback((x)=>{
         if(x<=248){

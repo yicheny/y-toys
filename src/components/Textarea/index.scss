@@ -6,8 +6,8 @@
   padding:8px 12px;
 
   &:focus{
-    border-color:rgba(0,191,255,0.72);
-    box-shadow: 4px 4px 12px rgba(0,191,255,0.25);
+    border-color:rgba(0,191,255,0.42);
+    box-shadow: 4px 4px 12px rgba(0,191,255,0.15);
     transition:all 0.25s ease-in;
   }
 }
