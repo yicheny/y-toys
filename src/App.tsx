@@ -10,8 +10,8 @@ import LocalDBDemo from "./demos/DB/localDB";
 const menuOptions = [
   // {text:'学习时间统计',to:'/time-total'},
   // {text:'知识复习',to:'/knowledge-review'},
-  // {text:'indexDB测试',to:'/demo/index-db'},
-  {text:'localDB测试',to:'/demo/local-db'},
+  {text:'indexDB测试',to:'/demo/index-db'},
+  // {text:'localDB测试',to:'/demo/local-db'},
 ]
 
 function App() {
