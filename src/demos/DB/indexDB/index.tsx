@@ -1,7 +1,7 @@
 import React from 'react';
 import PIndexDB from "./PIndexDB";
 
-main();
+// main();
 
 export default function IndexDBDemo() {
     return (<div>
