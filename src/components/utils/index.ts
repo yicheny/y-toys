@@ -4,3 +4,11 @@ export function curryClsPrefix(pre:string){
         return `${pre}-${name}`
     }
 }
+
+export function createLog(){
+    return {
+        log(info:string | number){
+            console.log(info)
+        }
+    }
+}

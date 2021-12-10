@@ -8,7 +8,7 @@ interface tableOption{
     primaryKey:string,
 }
 
-interface PIndexDBProps{
+export interface PIndexDBProps{
     dbName: string,
     version: number,
     tableOptions:tableOption[]
@@ -83,7 +83,7 @@ export default class PIndexDB{
 
     // createTable(option:IndexTableOption){}
 
-    getTable(name:string,storeNames?:string[]){
-        return new IndexTable({db:this.db,name,storeNames})
+    getTable(name:string){
+        return new IndexTable({db:this.db,name})
     }
 }

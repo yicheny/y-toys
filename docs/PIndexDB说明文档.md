@@ -54,7 +54,7 @@ interface PIndexDBProps{
 
 从这个图里我们也知道，一个数据库里是有很多张表存在的，`PIndexDB`不应该负责数据级别的处理。
 
-所以，在我们的设计中，如果我们想要对表进行操作，应该通过`PIndexDB.getTable()`方法获取一个`IndexTable`实例，然后对其进行操作，比如：
+所以，在我们的设计中，如果我们想要对表进行操作，应该通过`PIndexDB.getTable(name)`方法获取一个`IndexTable`实例，然后对其进行操作，比如：
 ```ts
 const table = db.getTable('test-table')
 ```
@@ -64,8 +64,10 @@ const table = db.getTable('test-table')
 1. `async add(record)` 添加数据
 2. `async delete(key)` 删除数据
 3. `async put(record)` 更新或添加数据
-4. `async count()` 获取当前记录数量
-5. `async clear()` 清空数据
+4. `async get(key)` 根据主键值查询数据
+5. `async getAll()` 获取表格所有数据
+6. `async count()` 获取当前记录数量
+7. `async clear()` 清空数据
 
 写法示例：
 ```ts
@@ -73,6 +75,9 @@ await table.add({id:1,value:1})
 
 await table.put({id:1,value:100});//更新
 await table.put({id:2,value:2});//增加
+
+await table.get(1);//{id:1,value:100}
+await table.getAll();//[{id:1,value:100},{id:2,value:2}]
 
 await table.delete(1);
 
