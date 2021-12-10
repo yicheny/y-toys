@@ -1,14 +1,3 @@
-export function curryClsPrefix(pre:string){
-    return function (name?:string){
-        if(!name) return pre;
-        return `${pre}-${name}`
-    }
-}
-
-export function createLog(){
-    return {
-        log(info:string | number){
-            console.log(info)
-        }
-    }
-}
+export { default as createLog} from './createLog'
+export { default as curryClsPrefix} from './curryClsPrefix'
+export {default as createToString} from './createToString'

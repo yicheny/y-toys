@@ -14,7 +14,12 @@ export interface PIndexDBProps{
     tableOptions:tableOption[]
 }
 
-export default class PIndexDB{
+interface IDB{
+    getTable(name:string):IndexTable,
+    getAllTableNames():Promise<DOMStringList>
+}
+
+export default class PIndexDB implements IDB{
     private readonly DBRequest: IDBOpenDBRequest;
     private readonly dbName: string;
     private readonly version: number;
@@ -85,5 +90,21 @@ export default class PIndexDB{
 
     getTable(name:string){
         return new IndexTable({db:this.db,name})
+    }
+
+    private async packListener(callback: { (): Promise<IDBRequest<any>>; }):Promise<any>{
+        return new Promise(async (resolve,reject) => {
+            const event = await callback();
+            event.onsuccess = (e) => {
+                resolve(_.get(e,'target.result'))
+            }
+            event.onerror = (e)=>{
+                reject(e)
+            }
+        });
+    }
+
+    async getAllTableNames():Promise<DOMStringList>{
+        return (await this.db).objectStoreNames
     }
 }
