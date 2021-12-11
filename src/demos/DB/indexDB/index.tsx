@@ -128,9 +128,11 @@ export default function IndexDBDemo() {
         <div className={styles.operation}>
             <Button onClick={(e)=>proxyCommand.executor(actionEnum.linkDB,{
                 dbName:'test-db',
-                version:4,
+                version:5,
                 tableOptions:[
-                    {name:'test-table',primaryKey:'id'}
+                    {name:'test-table',primaryKey:'id'},
+                    {name:'test-table2',primaryKey:'id'},
+                    {name:'test-table3',primaryKey:'id'},
                 ]
             })}>
                 连接数据库
@@ -155,12 +157,15 @@ export default function IndexDBDemo() {
 async function main(){
     const db = PIndexDB.create({
         dbName:'test-db',
-        version:4,
+        version:5,
         tableOptions:[
-            {name:'test-table',primaryKey:'id'}
+            {name:'test-table',primaryKey:'id'},
+            {name:'test-table2',primaryKey:'id'},
+            {name:'test-table3',primaryKey:'id'},
         ]
     })
-    const table = db.getTable('test-table')
+    const table = db.getTable('test-table2')
+    await table.put({value:1,id:1})
 
     // console.log(await table.getAll())
     //
