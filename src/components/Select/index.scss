@@ -1,0 +1,48 @@
+.c-select{
+  position:relative;
+  &.active{
+    .c-select-box{
+      display: block;
+    }
+  }
+
+  &-input{
+    box-sizing: border-box;
+    height:32px;
+    width:160px;
+    border:1px solid rgba(0,0,0,0.21);
+    border-radius: 3px;
+    transition: all 0.2s ease-in;
+    padding:0 6px;
+  }
+
+  &-box{
+    display: none;
+    position:absolute;
+    top:35px;
+    box-sizing: border-box;
+    width:160px;
+    max-height: 264px;
+    overflow: auto;
+    background: #fff;
+    border:1px solid rgba(0,0,0,0.21);
+
+    &-empty{
+      padding:8px;
+      color: #ccc;
+    }
+
+    &-item{
+      &:hover{
+        cursor:pointer;
+        background: rgba(0,0,0,0.12);
+      }
+      padding:8px;
+
+      &.select{
+        background: rgba(0,0,0,0.18);
+        color:#fff;
+      }
+    }
+  }
+}
