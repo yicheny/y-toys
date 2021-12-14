@@ -80,6 +80,7 @@ export default function Select(props:SelectProps) {
                ref={inputRef}
                key={key}
                defaultValue={renderValue}
+               placeholder={'请选择内容...'}
                onChange={e=>handleInputChange(e.target.value)}/>
         <div className={addPrefix('box')}>
             {
@@ -97,6 +98,6 @@ export default function Select(props:SelectProps) {
 
 /*
 * TODO
-*   1. focus抖动
+*   1. focus游标闪烁两次
 *   2. icon图标
 * */
