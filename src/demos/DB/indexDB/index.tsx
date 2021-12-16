@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import PIndexDB, {PIndexDBProps} from "./PIndexDB";
 import IndexTable, {key, record} from "./IndexTable";
 import {createLog, createToString} from "../../../components/utils";
@@ -31,6 +31,12 @@ class Command{
         if(!this.db) return log.log("尚未连接数据库，请先连接数据库！");
         this.table = this.db.getTable(name)
         log.log(`已成功获取表${name}！`)
+    }
+
+    async getAllTableNames(){
+        if(!this.db) return log.log("尚未连接数据库，请先连接数据库！");
+        const names = await this.db.getAllTableNames();
+        log.log(`已成功获取所有表名${toString.array(names)}`)
     }
 
     async add(record:record){
@@ -86,6 +92,7 @@ interface ProxyProps{
 enum actionEnum{
     linkDB="linkDB",
     linkTable="linkTable",
+    getAllTableNames='getAllTableNames',
     add="add",
     put="put",
     delete="delete",
@@ -116,6 +123,7 @@ class Proxy{
 
 export default function IndexDBDemo() {
     const [texts,setTexts] = useState<Array<any>>([])
+    const [nameOptions,setNameOptions] = useState([])
 
     const proxyCommand = useMemo(()=>{
         return new Proxy({
@@ -124,11 +132,19 @@ export default function IndexDBDemo() {
         })
     },[])
 
+    useEffect(()=>{
+        proxyCommand.executor(actionEnum.getAllTableNames).then(names=>{
+            // setNameOptions(names.map((name)=>{
+            //     return {text:name,id:name}
+            // }))
+        })
+    },[proxyCommand])
+
     return (<div className={styles.view}>
         <div className={styles.operation}>
             <Button onClick={(e)=>proxyCommand.executor(actionEnum.linkDB,{
                 dbName:'test-db',
-                version:5,
+                version:6,
                 tableOptions:[
                     {name:'test-table',primaryKey:'id'},
                     {name:'test-table2',primaryKey:'id'},
@@ -139,6 +155,9 @@ export default function IndexDBDemo() {
             </Button>
             <Button onClick={(e)=>proxyCommand.executor(actionEnum.linkTable,'test-table')}>
                 获取表
+            </Button>
+            <Button onClick={(e)=>proxyCommand.executor(actionEnum.put,{id:Date.now(),text:Date.now()})}>
+                新增数据
             </Button>
             <Button onClick={(e)=>proxyCommand.executor(actionEnum.getAll)}>
                 展示全部数据
@@ -157,7 +176,7 @@ export default function IndexDBDemo() {
 async function main(){
     const db = PIndexDB.create({
         dbName:'test-db',
-        version:5,
+        version:6,
         tableOptions:[
             {name:'test-table',primaryKey:'id'},
             {name:'test-table2',primaryKey:'id'},
