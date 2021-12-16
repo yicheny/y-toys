@@ -1,0 +1,54 @@
+.c-select{
+  position:relative;
+  &.active{
+    .c-select-input{
+      border:1px rgba(30,144,255,1) solid;
+      box-shadow: 4px 4px 12px rgba(30,144,255,0.32);
+    }
+
+    .c-select-box{
+      display: block;
+    }
+  }
+
+  &-input{
+    box-sizing: border-box;
+    height:32px;
+    width:180px;
+    border:1px solid rgba(0,0,0,0.21);
+    border-radius: 3px;
+    transition: all 0.2s ease-in;
+    outline: none;
+    padding:8px;
+  }
+
+  &-box{
+    display: none;
+    position:absolute;
+    top:35px;
+    box-sizing: border-box;
+    width:180px;
+    max-height: 264px;
+    overflow: auto;
+    background: #fff;
+    border:1px solid rgba(0,0,0,0.21);
+
+    &-empty{
+      padding:8px 12px;
+      color: #ccc;
+    }
+
+    &-item{
+      &:hover{
+        cursor:pointer;
+        background: rgba(0,0,0,0.12);
+      }
+      padding:8px 12px;
+
+      &.select{
+        background: rgba(0,0,0,0.18);
+        color:#fff;
+      }
+    }
+  }
+}

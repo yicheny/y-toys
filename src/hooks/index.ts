@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import _ from "lodash";
 
 export function useOutsideClick(ref:React.RefObject<HTMLElement>,handle:React.MouseEventHandler<HTMLElement>){
@@ -13,4 +13,15 @@ export function useOutsideClick(ref:React.RefObject<HTMLElement>,handle:React.Mo
             document.removeEventListener('click',listener)
         }
     },[ref,handle])
+}
+
+export function useKey():[number,()=>void]{
+    const [k,setK] = useState<number>(0)
+
+    const update = useCallback(()=>{
+        setK(x=>++x);
+    },[])
+
+    // return {key:k,updateKey:update}
+    return [k,update]
 }
