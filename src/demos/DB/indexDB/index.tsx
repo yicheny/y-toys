@@ -1,9 +1,9 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import PIndexDB, {PIndexDBProps} from "./PIndexDB";
 import IndexTable, {key, record} from "./IndexTable";
 import {createLog, createToString} from "../../../components/utils";
 import styles from './index.module.scss';
-import {Button} from "../../../components";
+import {Button, Select} from "../../../components";
 import _ from 'lodash'
 
 // main();
@@ -33,10 +33,15 @@ class Command{
         log.log(`已成功获取表${name}！`)
     }
 
+    getDB(){
+        return this.db;
+    }
+
     async getAllTableNames(){
         if(!this.db) return log.log("尚未连接数据库，请先连接数据库！");
         const names = await this.db.getAllTableNames();
         log.log(`已成功获取所有表名${toString.array(names)}`)
+        return names;
     }
 
     async add(record:record){
@@ -99,7 +104,8 @@ enum actionEnum{
     get="get",
     getAll="getAll",
     count="count",
-    clear="count"
+    clear="count",
+    getDB="getDB"
 }
 
 class Proxy{
@@ -111,12 +117,14 @@ class Proxy{
         this.setState = props.setState;
     }
 
+    //TODO 代理执行方法如何兼容所有返回值？
     async executor(actionKey:actionEnum,...params:any[]){
         const action = this.visitor[actionKey]
         if(_.isFunction(action)) {
             // @ts-ignore
-            await this.visitor[actionKey](...params);
+            const result = await this.visitor[actionKey](...params);
             this.setState(_.clone(log.getInfo()))
+            return result;
         }
     }
 }
@@ -132,14 +140,6 @@ export default function IndexDBDemo() {
         })
     },[])
 
-    useEffect(()=>{
-        proxyCommand.executor(actionEnum.getAllTableNames).then(names=>{
-            // setNameOptions(names.map((name)=>{
-            //     return {text:name,id:name}
-            // }))
-        })
-    },[proxyCommand])
-
     return (<div className={styles.view}>
         <div className={styles.operation}>
             <Button onClick={(e)=>proxyCommand.executor(actionEnum.linkDB,{
@@ -152,6 +152,18 @@ export default function IndexDBDemo() {
                 ]
             })}>
                 连接数据库
+            </Button>
+            <Select options={nameOptions} onChange={(v)=>console.log(v)}/>
+            <Button onClick={async ()=>{
+                const names = await proxyCommand.executor(actionEnum.getAllTableNames)
+                if(Array.isArray(names)){
+                    // @ts-ignore
+                    setNameOptions(names.map((name)=>{
+                        return {text:name,value:name}
+                    }))
+                }
+            }}>
+                获取所有表名
             </Button>
             <Button onClick={(e)=>proxyCommand.executor(actionEnum.linkTable,'test-table')}>
                 获取表

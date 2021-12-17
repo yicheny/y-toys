@@ -1,5 +1,6 @@
 .c-select{
   position:relative;
+  display: inline-block;
   &.active{
     .c-select-input{
       border:1px rgba(30,144,255,1) solid;
