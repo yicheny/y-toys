@@ -14,8 +14,8 @@ const menuOptions = [
   // {text:'知识复习',to:'/knowledge-review'},
   {text:'indexDB测试',to:'/demo/index-db'},
   // {text:'localDB测试',to:'/demo/local-db'},
-  {text:'SelectView',to:'/component/select'},
-  {text:'InputView',to:'/component/input'},
+  // {text:'SelectView',to:'/component/select'},
+  // {text:'InputView',to:'/component/input'},
 ]
 
 function App() {

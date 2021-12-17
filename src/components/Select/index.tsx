@@ -18,6 +18,7 @@ type tOption = {
 interface SelectProps {
     className?: string,
     defaultValue?: string,
+    placeholder?: string,
     options: tOption[],
     onChange: (value: tValue, option: tOption) => void
 }
@@ -26,7 +27,7 @@ interface SelectProps {
 //显示 s => o[s]
 
 export default function Select(props:SelectProps) {
-    const {options,onChange} = props;
+    const {options,onChange,placeholder} = props;
     const [select,setSelect] = useState<Voidable<tValue>>(props.defaultValue)
     const [active,setActive] = useState<boolean>(false);
     const containerRef = useRef<HTMLDivElement>(null);
@@ -36,9 +37,16 @@ export default function Select(props:SelectProps) {
 
     const handleInputChange = useCallback((value:string)=>{
         // setInputValue(value)
-        const ros = options.filter(x=>x.text.toString().includes(value));
+        const ros = options.filter(x=>{
+            if(value === '') return true;
+            return x.text.toString().includes(value)
+        });
         setRenderOptions(ros);
     },[options])
+
+    useEffect(()=>{
+        handleInputChange('')
+    },[handleInputChange])
 
     const openBox = useCallback((e)=>{
         // setInputValue('')
@@ -80,7 +88,7 @@ export default function Select(props:SelectProps) {
                ref={inputRef}
                key={key}
                defaultValue={renderValue}
-               placeholder={'请选择内容...'}
+               placeholder={placeholder || '请选择内容...'}
                onChange={e=>handleInputChange(e.target.value)}/>
         <div className={addPrefix('box')}>
             {

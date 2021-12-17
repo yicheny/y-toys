@@ -5,11 +5,12 @@ import {useCallback, useState} from "react";
 interface InputProps{
     className?:string,
     // defaultValue?:string
-    onChange:(v:string) => void
+    onChange:(v:string) => void,
+    placeholder?:string
 }
 
 export default function Input(props:InputProps){
-    const {onChange} = props;
+    const {onChange,placeholder} = props;
     const [value,setValue] = useState<string>('')
 
     const handleBlur = useCallback(()=>{
@@ -17,7 +18,7 @@ export default function Input(props:InputProps){
     },[onChange,value])
 
     return <input className={clsx('c-input',props.className)}
-                  placeholder={'请输入内容...'}
+                  placeholder={placeholder || '请输入内容...'}
                   onChange={(e)=>setValue(e.target.value)}
                   onBlur={handleBlur}/>
 }

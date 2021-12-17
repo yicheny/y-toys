@@ -1,5 +1,8 @@
 .view{
   margin:16px;
+  flex:1;
+  display: flex;
+  flex-direction: column;
 }
 
 .operation{
@@ -8,6 +11,8 @@
 
 .show{
   margin:16px 0;
+  flex:1;
+  overflow: auto;
 }
 
 .line{
