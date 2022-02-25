@@ -1,13 +1,13 @@
 .c-textarea{
-  border:#cdcdcd 1px solid;
+  //border:rgba(0, 0, 0, 0.12) 1px solid;
   outline: none;
   border-radius: 4px;
   box-sizing: border-box;
   padding:8px 12px;
 
   &:focus{
-    border-color:rgba(0,191,255,0.42);
-    box-shadow: 4px 4px 12px rgba(0,191,255,0.15);
+    border-color: rgba(0, 0, 0, 0.09);
+    box-shadow: 6px 6px 16px rgba(0,0,0,0.08);
     transition:all 0.25s ease-in;
   }
 }
