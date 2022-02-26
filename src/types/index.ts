@@ -8,7 +8,7 @@ export type Voidable<T> = T | null | undefined;
 
 export type RenderElement = ReactNode
 
-export interface ComponentProps {
+export interface CommonComponentProps {
     className?: string
     style?: CSSProperties
 }

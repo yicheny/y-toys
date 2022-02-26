@@ -1,7 +1,7 @@
 import React, {useMemo, useState} from 'react';
 import PIndexDB, {PIndexDBProps} from "./PIndexDB";
 import IndexTable, {key, record} from "./IndexTable";
-import {createLog, createToString} from "../../../components/utils";
+import {createLog, createToString} from "../../../utils";
 import styles from './index.module.scss';
 import {Button, Input, Select} from "../../../components";
 import _ from 'lodash'
@@ -148,7 +148,7 @@ export default function IndexDBDemo() {
     return (<div className={styles.view}>
         <div className={styles.operation}>
             <Row>
-                <Button onClick={(e) => proxyCommand.executor(actionEnum.linkDB, {
+                <Button onClick={() => proxyCommand.executor(actionEnum.linkDB, {
                     dbName: 'test-db',
                     version: 6,
                     tableOptions: [
@@ -177,20 +177,20 @@ export default function IndexDBDemo() {
                 </Button>
             </Row>
             <Row>
-                <Button onClick={(e)=>proxyCommand.executor(actionEnum.count)}>展示行数</Button>
-                <Button onClick={(e) => proxyCommand.executor(actionEnum.getAll)}>
+                <Button onClick={()=>proxyCommand.executor(actionEnum.count)}>展示行数</Button>
+                <Button onClick={() => proxyCommand.executor(actionEnum.getAll)}>
                     展示全部数据
                 </Button>
             </Row>
             <Row>
-                <Button onClick={(e) => proxyCommand.executor(actionEnum.put, {id: Date.now(), text: Date.now()})}>
+                <Button onClick={() => proxyCommand.executor(actionEnum.put, {id: Date.now(), text: Date.now()})}>
                     新增数据
                 </Button>
                 <Input onChange={setDeleteKey} placeholder={'请输入键值以便删除'}/>
-                <Button onClick={(e)=> proxyCommand.executor(actionEnum.delete,Number(deleteKey))}>
+                <Button onClick={()=> proxyCommand.executor(actionEnum.delete,Number(deleteKey))}>
                     删除数据
                 </Button>
-                <Button onClick={(e)=>proxyCommand.executor(actionEnum.clear)}>清空数据</Button>
+                <Button onClick={()=>proxyCommand.executor(actionEnum.clear)}>清空数据</Button>
             </Row>
         </div>
         <div className={styles.show}>
@@ -209,7 +209,7 @@ function Row(props: { children: boolean | React.ReactChild | React.ReactFragment
     </div>
 }
 
-async function main() {
+/*async function main() {
     const db = PIndexDB.create({
         dbName: 'test-db',
         version: 6,
@@ -240,4 +240,4 @@ async function main() {
     // table.delete(2)
 
     // table.clear()
-}
+}*/

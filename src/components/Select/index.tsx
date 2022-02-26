@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
-import {curryClsPrefix} from "../utils";
+import {curryClsPrefix} from "../../utils";
 import _ from 'lodash'
 import clsx from "clsx";
 import './index.scss';

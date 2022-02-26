@@ -1,7 +1,7 @@
 import {FC, Fragment, useEffect, useState} from "react";
 import clsx from "clsx";
 import './index.scss';
-import {curryClsPrefix} from "../utils";
+import {curryClsPrefix} from "../../utils";
 
 type TRadioValue = string | number;
 
@@ -47,7 +47,7 @@ export const RadioGroup: FC<RadioGroupProps> = function (props) {
 
     return <Fragment>
         {
-            props.options.map((option, i) => {
+            props.options.map((option) => {
                 return <Radio key={option.value}
                               value={option.value}
                               onClick={setCurrent}

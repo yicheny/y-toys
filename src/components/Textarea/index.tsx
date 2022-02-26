@@ -1,11 +1,10 @@
 import React from 'react';
 import clsx from 'clsx';
 import './index.scss';
+import {CommonComponentProps} from "../../types";
 
-interface TextareaProps{
-    className?:string,
+interface TextareaProps extends CommonComponentProps{
     onChange?:React.ChangeEventHandler<HTMLTextAreaElement>,
-    style?:React.CSSProperties,
     value?:string
 }
 
