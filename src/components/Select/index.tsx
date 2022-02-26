@@ -30,7 +30,6 @@ export default function Select(props:SelectProps) {
     const {options,onChange,placeholder} = props;
     const [select,setSelect] = useState<Voidable<tValue>>(props.defaultValue)
     const [active,setActive] = useState<boolean>(false);
-    const containerRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
     const [renderOptions,setRenderOptions] = useState<Array<tOption>>(options)
     const [key,keyUpdate] = useKey();
@@ -48,8 +47,7 @@ export default function Select(props:SelectProps) {
         handleInputChange('')
     },[handleInputChange])
 
-    const openBox = useCallback((e)=>{
-        // setInputValue('')
+    const openBox = useCallback(()=>{
         setActive(true);
     },[])
 
@@ -64,7 +62,7 @@ export default function Select(props:SelectProps) {
         setActive(false)
     },[])
 
-    useOutsideClick(containerRef,closeBox)
+    const {setOutsideRef: containerRef} = useOutsideClick(closeBox)
 
     const renderValue = useMemo(()=>{
         if(active) return '';

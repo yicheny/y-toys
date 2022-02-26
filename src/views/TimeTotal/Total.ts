@@ -19,6 +19,11 @@ export default class Total{
         return this._source;
     }
 
+    public empty(){
+        console.log(this._source)
+        return this._source === '';
+    }
+
     private getData(){
         const oneDayInfos = this._source.split('\n').filter(x=>x.trim()!=='');
         return _.map(oneDayInfos,(oneDayInfo:string)=>{

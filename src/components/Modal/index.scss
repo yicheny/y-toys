@@ -1,0 +1,29 @@
+.c-modal-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.c-modal {
+  width: 960px;
+  height: 540px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0,0.21);
+
+  &-header {
+    padding: 6px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .c-modal-operation {
+      cursor: pointer;
+    }
+  }
+}

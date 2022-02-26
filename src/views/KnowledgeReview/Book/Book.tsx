@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React from "react";
 import styles from './Book.module.scss'
 import {useOutsideClick} from "../../../hooks";
 import {Button, message} from "../../../components";
@@ -35,11 +35,9 @@ interface BookProps {
 }
 
 const Book: React.FC<BookProps> = function (props) {
-    const bookRef = useRef<HTMLDivElement>(null);
+    const {setOutsideRef:bookRef} =useOutsideClick(props.close);
 
     const {record, setRecord, currentPoint, next, prev} = useCurrentPoint(props.option.chapters);
-
-    useOutsideClick(bookRef, props.close)
 
     return <div className={styles.bookContainer}>
         <div className={styles.book} ref={bookRef}>
