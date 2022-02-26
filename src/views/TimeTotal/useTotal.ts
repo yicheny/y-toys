@@ -25,7 +25,6 @@ export class Total {
     }
 
     public empty() {
-        console.log(this._source)
         return this._source === '';
     }
 
