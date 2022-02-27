@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react';
 import {Routes, Route} from 'react-router-dom'
 import TimeTotal from "./views/TimeTotal";
-import {Menu} from "./components";
+import {Menu, message} from "./components";
 import KnowledgeReview from "./views/KnowledgeReview";
 import './App.scss';
 import IndexDBDemo from "./demos/DB/indexDB";
@@ -10,9 +10,15 @@ import SelectView from "./demos/components/Select";
 import InputView from "./demos/components/Input";
 import './i18n/config';
 import { useTranslation } from 'react-i18next';
+import {BaseMenu} from "./base";
 
 export default function App() {
+  const {i18n} = useTranslation()
   return <div className="app">
+    <BaseMenu size={100} onDoubleClick={()=>{
+      const nextLng = i18n.language === 'zh' ? 'en' : 'zh';
+      i18n.changeLanguage(nextLng).then(() => message.show(`切换语言成功！当前语言为：${nextLng}`));
+    }}>切换语言</BaseMenu>
     <Menu options={useMenuOptions()} className='app-menu'/>
     <div className="app-content">
       <Routes>

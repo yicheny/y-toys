@@ -3,7 +3,7 @@ import {useCallback, useState} from "react";
 import {message} from "../../components";
 import {Store} from "../../base";
 
-const store = new Store('time-total')
+const store = new Store('time-total','')
 
 type OneDayDict = {
     date: string,

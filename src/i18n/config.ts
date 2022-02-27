@@ -20,6 +20,8 @@ i18n.use(initReactI18next)
         debug:true,
 
         // have a common namespace used around the full app
+        // ns即 name space缩写
+        // 这里只使用了一个公共的命名空间，并没有发挥命名空间的威力，优势在于写法简单
         ns: ["translations"],
         defaultNS: "translations",
 
