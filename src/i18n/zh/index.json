@@ -1,0 +1,13 @@
+{
+  "title": "标题测试",
+  "menu": {
+    "shrink": "收缩",
+    "expand": "展开",
+    "studyTimeTotal": "学习时间统计",
+    "indexDB test": "indexDB 测试"
+  },
+  "studyTimeTotal": {
+    "save": "存储",
+    "load": "加载"
+  }
+}

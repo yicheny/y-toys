@@ -1,13 +1,12 @@
 import React from 'react';
 import './index.scss';
 import clsx from "clsx";
+import {CommonComponentProps} from "../../types";
 
-interface IconProps{
+interface IconProps extends CommonComponentProps{
     name:string,
     size?:number,
     color?:string,
-    className?:string,
-    style?:React.CSSProperties,
     onClick?:React.MouseEventHandler<HTMLElement>
 }
 

@@ -1,0 +1,13 @@
+{
+  "title": "title test",
+  "menu": {
+    "shrink": "shrink",
+    "expand": "expand",
+    "studyTimeTotal": "studyTimeTotal",
+    "indexDB test": "indexDB Test"
+  },
+  "studyTimeTotal": {
+    "save": "save",
+    "load": "load"
+  }
+}
