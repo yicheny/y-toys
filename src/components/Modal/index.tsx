@@ -22,9 +22,8 @@ export default function Index(props: ModalProps) {
           setOutsideRef(e)
           setDragRef(e)
         }}
-        onMouseDown={recordInitPos}
       >
-        <div className='c-modal-header'>
+        <div className='c-modal-header' onMouseDown={recordInitPos}>
           <div className='c-modal-title'>标题：点击外侧可关闭</div>
           <div className='c-modal-operation' onClick={() => close()}>
             关闭
