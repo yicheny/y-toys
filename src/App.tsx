@@ -14,13 +14,16 @@ import {BaseMenu} from "./base";
 import {ModalView} from "./demos/components/Modal";
 
 export default function App() {
-  const {i18n} = useTranslation()
+  const {t,i18n} = useTranslation()
   return <div className="app">
-    <BaseMenu size={100} onDoubleClick={()=>{
+    <BaseMenu size={64} onDoubleClick={()=>{
       const nextLng = i18n.language === 'zh' ? 'en' : 'zh';
       i18n.changeLanguage(nextLng).then(() => message.show(`切换语言成功！当前语言为：${nextLng}`));
-    }}>切换语言</BaseMenu>
-    <Menu options={useMenuOptions()} className='app-menu'/>
+    }}>lng</BaseMenu>
+    <Menu options={useMenuOptions()}
+          className='app-menu'
+          shrinkText={t('menu.shrink')}
+          expandText={t('menu.expand')}/>
     <div className="app-content">
       <Routes>
         <Route path='/time-total' element={<TimeTotal/>}/>
@@ -43,7 +46,7 @@ function useMenuOptions(){
       {text:t('menu.studyTimeTotal'),to:'/time-total'},
       // {text:'知识复习',to:'/knowledge-review'},
       {text:t('menu.indexDB test'),to:'/demo/index-db'},
-      {text:'Modal组件测试',to:'/component/modal'},
+      {text:t('menu.Modal test'),to:'/component/modal'},
       // {text:'localDB测试',to:'/demo/local-db'},
       // {text:'SelectView',to:'/component/select'},
       // {text:'InputView',to:'/component/input'},

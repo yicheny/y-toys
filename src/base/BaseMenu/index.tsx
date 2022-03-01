@@ -12,18 +12,12 @@ interface Props extends CommonComponentProps {
 
 export function BaseMenu(props: Props) {
     const {style, size} = props;
-    // const { setDragRef, recordInitPos, changePos, clearPos } = useDrag();
     const {setDragRef} = useDragNextSimple();
 
     return <div className={styles.base}
                 style={_.assign({width: size, height: size}, style)}
                 ref={setDragRef}
-                onDoubleClick={props.onDoubleClick}
-                // onMouseMove={changePos}
-                // onMouseUp={clearPos}
-                // onMouseLeave={clearPos}
-                // onMouseDown={recordInitPos}
-                >
+                onDoubleClick={props.onDoubleClick}>
         {props.children}
     </div>
 }

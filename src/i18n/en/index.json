@@ -4,7 +4,8 @@
     "shrink": "shrink",
     "expand": "expand",
     "studyTimeTotal": "studyTimeTotal",
-    "indexDB test": "indexDB Test"
+    "indexDB test": "indexDB Test",
+    "Modal test": "Modal test"
   },
   "studyTimeTotal": {
     "save": "save",

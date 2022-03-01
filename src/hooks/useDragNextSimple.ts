@@ -63,7 +63,7 @@ export function useDragNextSimple<T extends HTMLElement>() {
                 document.removeEventListener("mouseup", clearPos);
             }
         }
-    }, [])
+    }, [changePos, clearPos, dragRef, recordInitPos, triggerRef])
 
     useEffect(() => registry(), [registry])
 

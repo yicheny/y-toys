@@ -13,7 +13,9 @@ interface MenuProps {
     options: MenuOption[],
     className?: string,
     style?: React.CSSProperties,
-    defaultShrink: boolean
+    defaultShrink: boolean,
+    shrinkText:string,
+    expandText:string
 }
 
 Menu.defaultProps = {
@@ -26,7 +28,7 @@ export default function Menu(props: MenuProps): JSX.Element {
     const [shrink, setShrink] = useState<boolean>(props.defaultShrink);
 
     return <div className={clsx('c-menu', props.className, {shrink})} style={props.style}>
-        <Button onClick={() => setShrink(!shrink)}>{shrink ? '展开 ' : '收缩'}</Button>
+        <Button onClick={() => setShrink(!shrink)}>{shrink ? props.expandText : props.shrinkText}</Button>
         <div className="c-menu-content">
             {
                 props.options.map((option, key) => {

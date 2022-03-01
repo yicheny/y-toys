@@ -4,7 +4,8 @@
     "shrink": "收缩",
     "expand": "展开",
     "studyTimeTotal": "学习时间统计",
-    "indexDB test": "indexDB 测试"
+    "indexDB test": "indexDB 测试",
+    "Modal test": "Modal 测试"
   },
   "studyTimeTotal": {
     "save": "存储",
