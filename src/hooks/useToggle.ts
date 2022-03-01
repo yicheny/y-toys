@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react'
 
-export function useToggle() {
-  const [show, setShow] = useState<boolean>(false)
+export function useToggle(initialShow:boolean = false) {
+  const [show, setShow] = useState<boolean>(initialShow)
 
   const open = useCallback(() => setShow(true), [])
   const close = useCallback(() => setShow(false), [])

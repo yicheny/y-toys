@@ -1,23 +1,25 @@
 import {useCallback, useEffect, useRef} from 'react'
-import { Nullable } from '../types'
-import { useDomRef } from './useDomRef'
+import {Nullable} from '../types'
+import {useDomRef} from './useDomRef'
 
 type Position = {
     x: number
     y: number
 }
+
 export function useDragNextSimple<T extends HTMLElement>() {
     //移动开始的位置
     const initialPosition = useRef<Nullable<Position>>(null)
     //移动停止时的位移数值
-    const savePosition = useRef<Position>({ x: 0, y: 0 })
-    const { ref: dragRef, setRef } = useDomRef<T>()
+    const savePosition = useRef<Position>({x: 0, y: 0})
+    const {ref: dragRef, setRef} = useDomRef<T>()
+    const {ref: triggerRef, setRef: setTriggerRef} = useDomRef<T>()
 
     const offsetFor = useCallback((e) => {
-        if (!initialPosition.current) return { x: 0, y: 0 }
+        if (!initialPosition.current) return {x: 0, y: 0}
         const x = e.clientX - initialPosition.current.x + savePosition.current.x
         const y = e.clientY - initialPosition.current.y + savePosition.current.y
-        return { x, y }
+        return {x, y}
     }, [])
 
     //按下鼠标记录初始位置
@@ -33,7 +35,7 @@ export function useDragNextSimple<T extends HTMLElement>() {
         (e) => {
             if (!initialPosition.current) return
             if (!dragRef.current) return
-            const { x, y } = offsetFor(e)
+            const {x, y} = offsetFor(e)
             dragRef.current.style.transform = `translate(${x}px,${y}px)`
         },
         [offsetFor, dragRef]
@@ -48,22 +50,22 @@ export function useDragNextSimple<T extends HTMLElement>() {
         [offsetFor]
     )
 
-    const registry = useCallback(()=>{
-        const dragElement = dragRef.current;
-        if(dragElement){
-            dragElement.addEventListener("mousedown", recordInitPos);
+    const registry = useCallback(() => {
+        const element = triggerRef.current || dragRef.current;
+        if (element) {
+            element.addEventListener("mousedown", recordInitPos);
             document.addEventListener("mousemove", changePos);
             document.addEventListener("mouseup", clearPos);
+
+            return () => {
+                element?.removeEventListener("mousedown", recordInitPos);
+                document.removeEventListener("mousemove", changePos);
+                document.removeEventListener("mouseup", clearPos);
+            }
         }
+    }, [])
 
-        return ()=>{
-            dragElement?.removeEventListener("mousedown", recordInitPos);
-            document.removeEventListener("mousemove", changePos);
-            document.removeEventListener("mouseup", clearPos);
-        }
-    },[])
+    useEffect(() => registry(), [registry])
 
-    useEffect(()=>registry(),[registry])
-
-    return { setDragRef: setRef }
+    return {setDragRef: setRef, setTriggerRef}
 }

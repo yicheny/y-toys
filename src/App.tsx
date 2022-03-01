@@ -11,6 +11,7 @@ import InputView from "./demos/components/Input";
 import './i18n/config';
 import { useTranslation } from 'react-i18next';
 import {BaseMenu} from "./base";
+import {ModalView} from "./demos/components/Modal";
 
 export default function App() {
   const {i18n} = useTranslation()
@@ -28,6 +29,7 @@ export default function App() {
         <Route path='/demo/local-db' element={<LocalDBDemo/>}/>
         <Route path='/component/select' element={<SelectView/>}/>
         <Route path='/component/input' element={<InputView/>}/>
+        <Route path='/component/modal' element={<ModalView/>}/>
       </Routes>
     </div>
   </div>
@@ -41,6 +43,7 @@ function useMenuOptions(){
       {text:t('menu.studyTimeTotal'),to:'/time-total'},
       // {text:'知识复习',to:'/knowledge-review'},
       {text:t('menu.indexDB test'),to:'/demo/index-db'},
+      {text:'Modal组件测试',to:'/component/modal'},
       // {text:'localDB测试',to:'/demo/local-db'},
       // {text:'SelectView',to:'/component/select'},
       // {text:'InputView',to:'/component/input'},
