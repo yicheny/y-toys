@@ -3,7 +3,7 @@ import { RenderElement } from '../../types'
 import './index.scss'
 import { createPortal } from 'react-dom'
 import { useOutsideClick } from '../../hooks'
-import {useDragNextSimple} from "../../hooks/useDragNextSimple";
+import {useDrag} from "../../hooks";
 
 interface ModalProps {
   children: RenderElement
@@ -13,7 +13,7 @@ interface ModalProps {
 export default function Index(props: ModalProps) {
   const { close } = props
   const { setOutsideRef } = useOutsideClick<HTMLDivElement>(close)
-  const {setDragRef,setTriggerRef} = useDragNextSimple();
+  const {setDragRef,setTriggerRef} = useDrag();
 
   return createPortal(
     <div className='c-modal-wrap'>
