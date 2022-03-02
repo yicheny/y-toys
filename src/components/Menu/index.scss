@@ -30,7 +30,7 @@
   }
 
   &-header{
-    //padding:12px;
+    padding:12px;
     display: flex;
     justify-content: flex-end;
     border-bottom:1px solid rgba(0,0,0,0.12)
@@ -43,18 +43,24 @@
   }
 }
 
-.c-menu-shrink{
+.c-menu-tip{
   overflow: hidden;
+  display: flex;
+  align-items: center;
   &.expand{
     width:0;
+    //.c-menu-item{
+    //  pointer-events: none;
+    //}
   }
 
   &-btn{
     border:1px solid rgba(0,0,0,0.24);
-    padding:16px 4px;
+    padding:24px 4px;
     border-radius: 0 12px 12px 0;
     background: #fff;
     cursor:pointer;
     writing-mode:vertical-rl;
+    box-shadow: 0 2px 8px #d0d7de;
   }
 }

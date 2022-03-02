@@ -1,9 +1,8 @@
-import React from "react";
+import React, {useCallback, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import './index.scss'
 import clsx from "clsx";
-import {useToggle} from "../../hooks";
-import {Button} from "../index";
+import {Icon} from "../index";
 
 type MenuOption = {
     text: string,
@@ -14,29 +13,31 @@ interface MenuProps {
     options: MenuOption[],
     className?: string,
     style?: React.CSSProperties,
-    defaultShrink: boolean,
-    shrinkText:string,
-    expandText:string
+    defaultShrink?: boolean,
+    shrinkText?:string,
+    expandText?:string
 }
 
 Menu.defaultProps = {
-    defaultShrink: false
+    shrinkText:"收缩",
+    expandText:"展开"
 }
 
 export default function Menu(props: MenuProps): JSX.Element {
+    const {defaultShrink=false} = props;
     const {pathname} = useLocation();
     const navigate = useNavigate();
-    const { show:shrink, open:toShrink, close:toExpand } = useToggle(props.defaultShrink);
+    const {shrink,toggle,onEnter,onOut,rootShrink} = useControl(defaultShrink);
 
-    return <>
-        <div className={clsx('c-menu', props.className, {shrink})} style={props.style}>
+    return < >
+        <div className={clsx('c-menu', props.className, {shrink})} style={props.style} onMouseLeave={onOut}>
             <div className="c-menu-header">
-                <Button onClick={toShrink}>{props.shrinkText}</Button>
-                {/*<Icon name={'fixed'}
+                {/*<Button onClick={toShrink}>{props.shrinkText}</Button>*/}
+                <Icon name={'fixed'}
                       size={24}
-                      className={clsx({shrink})}
+                      className={clsx({shrink:rootShrink})}
                       style={{cursor: "pointer"}}
-                      onClick={toggleShrink}/>*/}
+                      onClick={toggle}/>
             </div>
             <div className="c-menu-content">
                 {
@@ -50,12 +51,58 @@ export default function Menu(props: MenuProps): JSX.Element {
                 }
             </div>
         </div>
-        <div className={clsx('c-menu-shrink',{expand:!shrink})}>
-            <div className="c-menu-shrink-btn"
-                 onClick={toExpand}
-            >
+        <div className={clsx('c-menu-tip',{expand:!shrink})}>
+            <div className="c-menu-tip-btn" onMouseEnter={onEnter}>
                 {props.expandText}
             </div>
         </div>
     </>
+}
+
+const sleep = 100;
+function useControl(defaultValue:boolean){
+    const [rs,setRs] = useState<boolean>(defaultValue);//rootShrink
+    const [ds,setDs] = useState<boolean>(false);//dynamicShrink
+
+    const toShrink = useCallback(()=>{
+        setRs(true)
+        setDs(true)
+    },[]);
+    const toExpand = useCallback(()=>{
+        setRs(false)
+        setDs(false)
+    },[]);
+
+    const toggle = useCallback(()=>{
+        if(rs){
+            setRs(false)
+            setDs(false)
+        }else{
+            setRs(true)
+            setDs(true)
+        }
+    },[rs])
+
+    const onEnter = useCallback(()=>{
+        // console.log(rs,'enter');
+        if(rs){
+            const timeId = setTimeout(()=>{
+                setDs(false)
+                clearTimeout(timeId)
+            },sleep)
+        }
+    },[rs])
+
+    const onOut = useCallback(()=>{
+        // console.log(rs,'out');
+        if(rs){
+            const timeId = setTimeout(()=>{
+                setDs(true)
+                clearTimeout(timeId)
+            },sleep)
+        }
+    },[rs])
+
+    // console.log('rs',rs,'ds',ds)
+    return {shrink: rs && ds,rootShrink:rs,toShrink,toExpand,onEnter,onOut,toggle}
 }
