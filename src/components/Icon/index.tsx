@@ -8,12 +8,16 @@ interface IconProps extends CommonComponentProps{
     size?:number,
     color?:string,
     onClick?:React.MouseEventHandler<HTMLElement>
+    onMouseEnter?:React.MouseEventHandler<HTMLElement>,
+    pRef?:React.Ref<any>
 }
 
 const Icon:React.FC<IconProps> = function (props){
     return <i className={clsx('iconfont',`icon-${props.name}`,props.className)}
+              ref={props.pRef}
               style={{fontSize:props.size,color:props.color,...props.style}}
-              onClick={props.onClick}/>
+              onClick={props.onClick}
+              onMouseEnter={props.onMouseEnter}/>
 }
 Icon.defaultProps = {
     size:16,

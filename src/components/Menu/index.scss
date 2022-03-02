@@ -3,6 +3,7 @@
   flex-direction: column;
   background: #fff;
   width:240px;
+  //transform: translateX(0px);
   transition: transform 180ms ease-in;
   .iconfont{
     transform: rotate(-45deg);
@@ -43,7 +44,7 @@
   }
 }
 
-.c-menu-tip{
+.c-menu-box{
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -51,13 +52,19 @@
     display: none;
   }
 
-  &-btn{
+  &-btns{
+    position:fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     border:1px solid rgba(0,0,0,0.24);
-    padding:24px 4px;
+    padding:8px 4px;
+    height:80px;
     border-radius: 0 12px 12px 0;
     background: #fff;
-    cursor:pointer;
-    writing-mode:vertical-rl;
     box-shadow: 0 2px 8px #d0d7de;
+    >.iconfont{
+      cursor:pointer;
+    }
   }
 }
