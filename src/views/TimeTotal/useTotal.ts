@@ -5,7 +5,7 @@ import {Store} from "../../base";
 
 const store = new Store('time-total','')
 
-type OneDayDict = {
+export interface OneDayDict{
     date: string,
     time: number,
     info: string
@@ -28,7 +28,7 @@ export class Total {
         return this._source === '';
     }
 
-    private getData() {
+    getData() {
         const oneDayInfos = this._source.split('\n').filter(x => x.trim() !== '');
         return _.map(oneDayInfos, (oneDayInfo: string) => {
             const [date, time, info] = _.split(oneDayInfo, '===')

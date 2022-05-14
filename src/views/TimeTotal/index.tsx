@@ -4,6 +4,7 @@ import {TextArea, Button,Box} from "../../components";
 import styles from './index.module.scss'
 import {useTotal} from "./useTotal";
 import {useTranslation} from "react-i18next";
+import Chart from "./Chart";
 
 export default function TimeTotal(): JSX.Element {
     const {handleChange, totalData, save, read} = useTotal();
@@ -16,6 +17,7 @@ export default function TimeTotal(): JSX.Element {
             <Button onClick={read}>{t('studyTimeTotal.load')}</Button>
         </div>
         <TotalInfo data={totalData.totalInfo()}/>
+        <Chart total={totalData}/>
     </Box>
 }
 
