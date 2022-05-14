@@ -3,6 +3,7 @@
   flex-direction: column;
   background: #fff;
   width:240px;
+  min-width: 240px;
   //transform: translateX(0px);
   transition: all 180ms ease-in;
   .iconfont{
@@ -38,6 +39,7 @@
 
   &.shrink{
     width:0;
+    min-width:0;
     transform: translateX(-240px);
     text-align: center;
     overflow: hidden;
