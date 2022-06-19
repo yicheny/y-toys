@@ -16,18 +16,6 @@
 
   &-content{
     flex:1;
-
-    .c-menu-item{
-      padding:8px 12px;
-      cursor:pointer;
-      transition: all 180ms ease-in;
-      white-space: nowrap;
-
-      &.current{
-        background: rgba(16, 32, 60, 0.28);
-        color:#fff;
-      }
-    }
   }
 
   &-header{
@@ -68,5 +56,30 @@
     >.iconfont{
       cursor:pointer;
     }
+  }
+}
+
+.c-menu-item{
+  padding:8px 12px;
+  cursor:pointer;
+  transition: all 180ms ease-in;
+  white-space: nowrap;
+
+  &.parent{
+    display: flex;
+    justify-content: space-between;
+    >.iconfont{
+      transform: rotate(90deg);
+    }
+    &.expanded{
+      >.iconfont{
+        transform: rotate(270deg);
+      }
+    }
+  }
+
+  &.current{
+    background: rgba(16, 32, 60, 0.28);
+    color:#fff;
   }
 }

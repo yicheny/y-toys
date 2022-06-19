@@ -11,7 +11,7 @@ export default function TimeTotal(): JSX.Element {
     const {t} = useTranslation()
 
     return <Box>
-        <TextArea style={{width: 480, height: 320}} onChange={handleChange} value={totalData.getSource()}/>
+        <TextArea style={{width: 840, height: 360}} onChange={handleChange} value={totalData.getSource()}/>
         <div className={styles.buttonGroup}>
             <Button onClick={save}>{t('studyTimeTotal.save')}</Button>
             <Button onClick={read}>{t('studyTimeTotal.load')}</Button>
@@ -26,7 +26,7 @@ interface TotalInfoProps {
 }
 
 function TotalInfo(props: TotalInfoProps) {
-    return <div>
+    return <div style={{margin:"12px 8px"}}>
         {_.map(props.data, (x, i) => {
             return <div key={i}>
                 {x}
