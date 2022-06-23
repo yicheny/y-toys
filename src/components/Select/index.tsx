@@ -32,7 +32,6 @@ export default function Select(props:SelectProps) {
     const [key,keyUpdate] = useKey();
 
     const handleInputChange = useCallback((value:string)=>{
-        // setInputValue(value)
         const ros = options.filter(x=>{
             if(value === '') return true;
             return x.text.toString().includes(value)

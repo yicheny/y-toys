@@ -16,7 +16,7 @@ export default function IconDemo() {
     return <Box style={{display:'flex'}}>
         {
             option.map(x=>{
-                return <div style={{margin:'6px 16px'}}>
+                return <div style={{margin:'6px 16px'}} key={x.icon}>
                     <span style={{marginRight:8}}>{x.text}</span>
                     <Icon name={x.icon}/>
                 </div>

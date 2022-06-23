@@ -13,6 +13,8 @@ import {useTranslation} from 'react-i18next';
 import {BaseMenu} from "./base";
 import {ModalView} from "./demos/components/Modal";
 import IconDemo from "./demos/components/Icon";
+import RadioDemo from "./demos/components/Radio";
+import MessageDemo from "./demos/components/Message";
 
 export default function App() {
     const {t, i18n} = useTranslation()
@@ -38,6 +40,8 @@ export default function App() {
                 <Route path='/component/input' element={<InputView/>}/>
                 <Route path='/component/modal' element={<ModalView/>}/>
                 <Route path='/component/Icon' element={<IconDemo/>}/>
+                <Route path='/component/radio' element={<RadioDemo/>}/>
+                <Route path='/component/message' element={<MessageDemo/>}/>
             </Routes>
         </div>
     </div>
