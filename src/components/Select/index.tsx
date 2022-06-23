@@ -23,9 +23,6 @@ interface SelectProps {
     onChange: (value: tValue, option: tOption) => void
 }
 
-//输入 v
-//显示 s => o[s]
-
 export default function Select(props:SelectProps) {
     const {options,onChange,placeholder} = props;
     const [select,setSelect] = useState<Voidable<tValue>>(props.defaultValue)
@@ -101,9 +98,3 @@ export default function Select(props:SelectProps) {
         </div>
     </div>
 }
-
-/*
-* TODO
-*   1. focus游标闪烁两次
-*   2. icon图标
-* */

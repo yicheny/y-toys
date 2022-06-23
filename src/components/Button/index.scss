@@ -1,11 +1,12 @@
 .c-button{
+  display: inline-flex;
   text-align: center;
   font-size: 14px;
   margin:4px;
-  padding:6px 8px;
+  padding:8px 12px;
   color:#fff;
   background: rgba(30,144,255,1);
-  border-radius: 6px;
+  border-radius: 4px;
   box-shadow: 3px 3px 8px rgba(30,144,255,0.32);
   cursor:pointer;
   transition: box-shadow 200ms ease-in;

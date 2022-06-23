@@ -87,7 +87,7 @@ function ParentMenuItem(props:ParentMenuItemProps){
     const {option} = props;
     const {pathname} = useLocation();
     const {forceUpdate} = useForceUpdate()
-    const {expanded} = option
+    const {expanded=true} = option
     return <>
         <MenuItem className={clsx('parent',{expanded,current:expanded && hasCurrent(option,pathname)})}
                   style={props.style}
@@ -96,7 +96,7 @@ function ParentMenuItem(props:ParentMenuItemProps){
                       forceUpdate()
                   }}>
             <span className="c-menu-item-text">{option.text}</span>
-            <Icon name={'arrow-right'} className="c-menu-item-btn"/>
+            <Icon name={'arrow-top'} className="c-menu-item-btn"/>
         </MenuItem>
         {expanded || <SubMenu options={option.children || []} level={props.level+1}/>}
     </>

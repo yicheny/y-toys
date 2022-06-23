@@ -25,11 +25,11 @@ const mockData = _.times(50, x => {
 })
 
 function KnowledgeReview() {
-    const [bookOption,setBookOption] = useState<Nullable<BookOption>>(mockData[0])
+    const [bookOption,setBookOption] = useState<Nullable<BookOption>>(null)
     return (<div className={styles.view}>
         <div className={styles.operate}>
             <Button onClick={() => message.show('此功能正在开发中！')}>导入新书</Button>
-            {/*<Button onClick={() => message.show('此功能正在开发中！')}>更新资料</Button>*/}
+            <Button onClick={() => message.show('此功能正在开发中！')}>更新资料</Button>
         </div>
         <div className={styles.books}>
             {

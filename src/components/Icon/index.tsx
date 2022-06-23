@@ -1,7 +1,16 @@
 import React from 'react';
-import './index.scss';
 import clsx from "clsx";
 import {CommonComponentProps} from "../../types";
+
+const classMap:Record<string, string> = {
+    'arrow-top':'xiangshangjiantou',
+    'arrow-right':'xiangyoujiantou',
+    'arrow-bottom':'xiangxiajiantou',
+    'arrow-left':'xiangzuojiantou',
+    'fixed':"fix",
+    'close':"guanbi",
+    'setting':'shezhi'
+}
 
 interface IconProps extends CommonComponentProps{
     name:string,
@@ -13,7 +22,8 @@ interface IconProps extends CommonComponentProps{
 }
 
 const Icon:React.FC<IconProps> = function (props){
-    return <i className={clsx('iconfont',`icon-${props.name}`,props.className)}
+    const {name} = props;
+    return <i className={clsx('iconfont',`icon-${classMap[name] || name}`,props.className)}
               ref={props.pRef}
               style={{fontSize:props.size,color:props.color,...props.style}}
               onClick={props.onClick}

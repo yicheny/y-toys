@@ -69,11 +69,11 @@
     display: flex;
     justify-content: space-between;
     >.iconfont{
-      transform: rotate(90deg);
+      transform: rotate(0deg);
     }
     &.expanded{
       >.iconfont{
-        transform: rotate(270deg);
+        transform: rotate(180deg);
       }
     }
   }

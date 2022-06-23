@@ -12,13 +12,17 @@ import './i18n/config';
 import {useTranslation} from 'react-i18next';
 import {BaseMenu} from "./base";
 import {ModalView} from "./demos/components/Modal";
+import IconDemo from "./demos/components/Icon";
 
 export default function App() {
     const {t, i18n} = useTranslation()
     return <div className="app">
         <BaseMenu size={64} onDoubleClick={() => {
             const nextLng = i18n.language === 'zh' ? 'en' : 'zh';
-            i18n.changeLanguage(nextLng).then(() => message.show(`切换语言成功！当前语言为：${nextLng}`));
+            i18n.changeLanguage(nextLng).then(() => {
+                if(nextLng === 'en') return message.show(`Switch language successfully! The current language is: English`)
+                message.show(`切换语言成功！当前语言为：中文`)
+            });
         }}>lng</BaseMenu>
         <Menu options={useMenuOptions()}
               className='app-menu'
@@ -33,6 +37,7 @@ export default function App() {
                 <Route path='/component/select' element={<SelectView/>}/>
                 <Route path='/component/input' element={<InputView/>}/>
                 <Route path='/component/modal' element={<ModalView/>}/>
+                <Route path='/component/Icon' element={<IconDemo/>}/>
             </Routes>
         </div>
     </div>
@@ -43,21 +48,30 @@ function useMenuOptions() {
 
     return useMemo(() => {
         return [
-            {text: t('menu.studyTimeTotal'), to: '/time-total'},
-            {text:'知识复习',to:'/knowledge-review'},
             {
-                text: "工作相关",
-                children: [
-                    {text: t('menu.indexDB test'), to: '/demo/index-db'},
-                    {text: 'localDB测试', to: '/demo/local-db'},
+                text:'my',
+                children:[
+                    {text: t('menu.studyTimeTotal'), to: '/time-total'},
+                    {text: t('menu.knowledge review'),to:'/knowledge-review'},
                 ]
             },
             {
-                text: "组件测试",
+                text: t('menu.work'),
+                children: [
+                    {text: t('menu.indexDB test'), to: '/demo/index-db'},
+                    {text: t('menu.localDB test'), to: '/demo/local-db'},
+                ]
+            },
+            {
+                text: t("menu.component test"),
                 children: [
                     {text: t('menu.Modal'), to: '/component/modal'},
                     {text: 'Select', to: '/component/select'},
                     {text: 'Input', to: '/component/input'},
+                    {text: 'Button', to:'/component/button'},
+                    {text: 'Icon', to:'/component/icon'},
+                    {text: 'Message', to:'/component/message'},
+                    {text: 'Radio', to:'/component/radio'},
                 ]
             }
         ]

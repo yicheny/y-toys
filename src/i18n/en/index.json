@@ -4,7 +4,11 @@
     "shrink": "shrink",
     "expand": "expand",
     "studyTimeTotal": "studyTimeTotal",
+    "knowledge review": "knowledge review",
+    "work": "work",
     "indexDB test": "indexDB Test",
+    "localDB test": "localDB test",
+    "component test": "component test",
     "Modal": "Modal"
   },
   "studyTimeTotal": {
