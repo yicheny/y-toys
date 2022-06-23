@@ -4,11 +4,19 @@ import clsx from "clsx";
 import {Icon} from "../index";
 import {MenuOperation} from "./MenuOperation";
 import {useControl} from "./useControl";
-import {Fragment} from "react";
+import {createContext, Fragment, useContext, useEffect, useState} from "react";
 import {RenderElement} from "../../types";
-import {useForceUpdate} from "../../hooks";
 import _ from 'lodash'
+import {Store} from "../../base";
 
+interface MenuContextValue{
+    setOptions:(options:MenuOption[]) => void
+}
+const MenuContext = createContext<MenuContextValue>({
+    setOptions:() => null
+})
+
+type StoreKey = string | number
 
 type MenuOption = {
     text: string,
@@ -24,7 +32,8 @@ interface MenuProps {
     defaultShrink?: boolean,
     shrinkText?:string,
     expandText?:string,
-    indent?:number
+    indent?:number,
+    storeKey?:StoreKey
 }
 
 Menu.defaultProps = {
@@ -35,8 +44,9 @@ Menu.defaultProps = {
 export default function Menu(props: MenuProps): JSX.Element {
     const {defaultShrink=false} = props;
     const {shrink,toggle,onEnter,onOut,rootShrink} = useControl(defaultShrink);
+    const {options,setOptions} = useStore(props.options,props.storeKey)
 
-    return <>
+    return <MenuContext.Provider value={{setOptions}}>
         <div className={clsx('c-menu', props.className, {shrink})} style={props.style} onMouseLeave={onOut}>
             <div className="c-menu-header">
                 {/*<Button onClick={toShrink}>{props.shrinkText}</Button>*/}
@@ -47,11 +57,11 @@ export default function Menu(props: MenuProps): JSX.Element {
                       onClick={toggle}/>
             </div>
             <div className="c-menu-content">
-                <SubMenu options={props.options} level={1} indent={props.indent}/>
+                <SubMenu options={options} level={1} indent={props.indent}/>
             </div>
         </div>
         <MenuOperation shrink={shrink} onMouseEnter={onEnter}/>
-    </>
+    </MenuContext.Provider>
 }
 
 interface SubMenuProps{
@@ -60,16 +70,16 @@ interface SubMenuProps{
     indent?:number
 }
 function SubMenu(props:SubMenuProps){
-    const {level,indent=24} = props;
+    const {level,indent=24,options} = props;
 
     return <>
         {
-            props.options.map((option, key) => {
+            _.map(options,(option, key) => {
                 const style = {paddingLeft:indent*level}
                 return <Fragment key={key}>
                     {
                         option.children
-                            ? <ParentMenuItem option={option} style={style} level={level}/>
+                            ? <ParentMenuItem option={option} style={style} level={level} options={options}/>
                             : <LeafMenuItem option={option} style={style}/>
                     }
                 </Fragment>
@@ -82,18 +92,19 @@ interface ParentMenuItemProps{
     style:React.CSSProperties,
     option:MenuOption
     level:number
+    options:MenuOption[]
 }
 function ParentMenuItem(props:ParentMenuItemProps){
-    const {option} = props;
+    const {option,options} = props;
     const {pathname} = useLocation();
-    const {forceUpdate} = useForceUpdate()
+    const {setOptions} = useContext(MenuContext)
     const {expanded=true} = option
     return <>
         <MenuItem className={clsx('parent',{expanded,current:expanded && hasCurrent(option,pathname)})}
                   style={props.style}
                   onClick={()=>{
                       option.expanded = !expanded;
-                      forceUpdate()
+                      setOptions(_.clone(options))
                   }}>
             <span className="c-menu-item-text">{option.text}</span>
             <Icon name={'arrow-top'} className="c-menu-item-btn"/>
@@ -136,4 +147,26 @@ function MenuItem(props:MenuItemProps){
                 onClick={props.onClick}>
         {props.children}
     </div>
+}
+
+function useStore(sourceOptions:MenuOption[],storeKey?:StoreKey){
+    const [options,setOptions] = useState<MenuOption[]>(sourceOptions)
+
+    useEffect(()=>{
+        if(!storeKey) return ;
+        const store = new Store<MenuOption[]>(_.toString(storeKey) ,[])
+        setOptions(store.readT())
+    },[storeKey])
+
+    useEffect(()=>{
+        if(!storeKey) return ;
+        const store = new Store<MenuOption[]>(_.toString(storeKey) ,[])
+        store.saveT(options)
+    },[storeKey,options])
+
+    // useEffect(()=>{
+    //     setOptions(sourceOptions)
+    // },[sourceOptions])
+
+    return {options,setOptions}
 }

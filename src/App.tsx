@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react';
 import {Routes, Route} from 'react-router-dom'
 import TimeTotal from "./views/TimeTotal";
-import {Menu, message} from "./components";
+import {Menu} from "./components";
 import KnowledgeReview from "./views/KnowledgeReview";
 import './App.scss';
 import IndexDBDemo from "./demos/DB/indexDB";
@@ -10,24 +10,24 @@ import SelectView from "./demos/components/Select";
 import InputView from "./demos/components/Input";
 import './i18n/config';
 import {useTranslation} from 'react-i18next';
-import {BaseMenu} from "./base";
 import {ModalView} from "./demos/components/Modal";
 import IconDemo from "./demos/components/Icon";
 import RadioDemo from "./demos/components/Radio";
 import MessageDemo from "./demos/components/Message";
 
 export default function App() {
-    const {t, i18n} = useTranslation()
+    const {t} = useTranslation()
     return <div className="app">
-        <BaseMenu size={64} onDoubleClick={() => {
+       {/* <BaseMenu size={64} onDoubleClick={() => {
             const nextLng = i18n.language === 'zh' ? 'en' : 'zh';
             i18n.changeLanguage(nextLng).then(() => {
                 if(nextLng === 'en') return message.show(`Switch language successfully! The current language is: English`)
                 message.show(`切换语言成功！当前语言为：中文`)
             });
-        }}>lng</BaseMenu>
+        }}>lng</BaseMenu>*/}
         <Menu options={useMenuOptions()}
               className='app-menu'
+              storeKey={'app-menu'}
               shrinkText={t('menu.shrink')}
               expandText={t('menu.expand')}/>
         <div className="app-content">
