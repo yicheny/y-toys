@@ -15,6 +15,7 @@ import IconDemo from "./demos/components/Icon";
 import RadioDemo from "./demos/components/Radio";
 import MessageDemo from "./demos/components/Message";
 import ButtonDemo from "./demos/components/Button";
+import Test from "./views/Test";
 
 export default function App() {
     const {t} = useTranslation()
@@ -33,10 +34,11 @@ export default function App() {
               expandText={t('menu.expand')}/>
         <div className="app-content">
             <Routes>
-                <Route path='/time-total' element={<TimeTotal/>}/>
-                <Route path='/knowledge-review' element={<KnowledgeReview/>}/>
-                <Route path='/demo/index-db' element={<IndexDBDemo/>}/>
-                <Route path='/demo/local-db' element={<LocalDBDemo/>}/>
+                <Route path='/my/time-total' element={<TimeTotal/>}/>
+                <Route path='/my/knowledge-review' element={<KnowledgeReview/>}/>
+                <Route path='/my/test' element={<Test/>}/>
+                <Route path='/work/index-db' element={<IndexDBDemo/>}/>
+                <Route path='/work/local-db' element={<LocalDBDemo/>}/>
                 <Route path='/component/select' element={<SelectView/>}/>
                 <Route path='/component/input' element={<InputView/>}/>
                 <Route path='/component/modal' element={<ModalView/>}/>
@@ -57,15 +59,16 @@ function useMenuOptions() {
             {
                 text:t('menu.my'),
                 children:[
-                    {text: t('menu.studyTimeTotal'), to: '/time-total'},
-                    {text: t('menu.knowledge review'),to:'/knowledge-review'},
+                    {text: t('menu.studyTimeTotal'), to: '/my/time-total'},
+                    {text: t('menu.knowledge review'),to:'/my/knowledge-review'},
+                    {text: t('menu.test'),to:'/my/test'},
                 ]
             },
             {
                 text: t('menu.work'),
                 children: [
-                    {text: t('menu.indexDB test'), to: '/demo/index-db'},
-                    {text: t('menu.localDB test'), to: '/demo/local-db'},
+                    {text: t('menu.indexDB test'), to: '/work/index-db'},
+                    {text: t('menu.localDB test'), to: '/work/local-db'},
                 ]
             },
             {
