@@ -14,6 +14,7 @@ import {ModalView} from "./demos/components/Modal";
 import IconDemo from "./demos/components/Icon";
 import RadioDemo from "./demos/components/Radio";
 import MessageDemo from "./demos/components/Message";
+import ButtonDemo from "./demos/components/Button";
 
 export default function App() {
     const {t} = useTranslation()
@@ -42,6 +43,7 @@ export default function App() {
                 <Route path='/component/Icon' element={<IconDemo/>}/>
                 <Route path='/component/radio' element={<RadioDemo/>}/>
                 <Route path='/component/message' element={<MessageDemo/>}/>
+                <Route path='/component/button' element={<ButtonDemo/>}/>
             </Routes>
         </div>
     </div>
@@ -53,7 +55,7 @@ function useMenuOptions() {
     return useMemo(() => {
         return [
             {
-                text:'my',
+                text:t('menu.my'),
                 children:[
                     {text: t('menu.studyTimeTotal'), to: '/time-total'},
                     {text: t('menu.knowledge review'),to:'/knowledge-review'},
