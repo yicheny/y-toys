@@ -155,7 +155,8 @@ function useStore(sourceOptions:MenuOption[],storeKey?:StoreKey){
     useEffect(()=>{
         if(!storeKey) return ;
         const store = new Store<MenuOption[]>(_.toString(storeKey) ,[])
-        setOptions(store.readT())
+        const data = store.readT()
+        if(!_.isEmpty(data)) setOptions(data)
     },[storeKey])
 
     useEffect(()=>{
