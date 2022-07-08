@@ -34,6 +34,7 @@ interface MenuProps {
     expandText?:string,
     indent?:number,
     storeKey?:StoreKey
+    // version?:number //通过版本实现持久化数据更新
 }
 
 Menu.defaultProps = {

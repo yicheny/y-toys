@@ -16,6 +16,7 @@ import RadioDemo from "./demos/components/Radio";
 import MessageDemo from "./demos/components/Message";
 import ButtonDemo from "./demos/components/Button";
 import Test from "./views/Test";
+import MicroServices from "./workViews/microServices";
 
 export default function App() {
     const {t} = useTranslation()
@@ -28,6 +29,7 @@ export default function App() {
             });
         }}>lng</BaseMenu>*/}
         <Menu options={useMenuOptions()}
+              // version={0}
               className='app-menu'
               storeKey={'app-menu'}
               shrinkText={t('menu.shrink')}
@@ -39,6 +41,7 @@ export default function App() {
                 <Route path='/my/test' element={<Test/>}/>
                 <Route path='/work/index-db' element={<IndexDBDemo/>}/>
                 <Route path='/work/local-db' element={<LocalDBDemo/>}/>
+                <Route path='/work/microServices' element={<MicroServices/>}/>
                 <Route path='/component/select' element={<SelectView/>}/>
                 <Route path='/component/input' element={<InputView/>}/>
                 <Route path='/component/modal' element={<ModalView/>}/>
@@ -69,6 +72,7 @@ function useMenuOptions() {
                 children: [
                     {text: t('menu.indexDB test'), to: '/work/index-db'},
                     {text: t('menu.localDB test'), to: '/work/local-db'},
+                    {text: "微服务", to:"/work/microServices"}
                 ]
             },
             {
