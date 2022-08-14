@@ -45,6 +45,7 @@ export class Total {
         const monthData = this.totalWithCount(30);
         const weekData = this.totalWithCount(7);
         return [
+            `今年共计学习${this._data.length}天！`,
             `今年学习时间共计${yearData.accTimes}小时，今年平均每日学习时间${yearData.aveTime}小时;`,
             `最近一月学习时间共计${monthData.accTimes}小时，最近一月平均每日学习时间${monthData.aveTime}小时;`,
             `最近一周学习时间共计${weekData.accTimes}小时，最近一周平均每日学习时间${weekData.aveTime}小时;`,

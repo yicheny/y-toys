@@ -16,7 +16,7 @@ interface TooltipFormatterParam<D>{
 }
 
 export default function Chart(props:Props) {
-    return <ReactECharts option={useOption(props.total)}/>
+    return <ReactECharts option={useOption(props.total)} style={{height:600}}/>
 }
 
 function useOption(total:Total){
