@@ -2,6 +2,7 @@ import _ from "lodash";
 import {useCallback, useState} from "react";
 import {message} from "../../components";
 import {Store} from "../../base";
+import {de} from "../../utils";
 
 const store = new Store('time-total','')
 
@@ -44,8 +45,9 @@ export class Total {
         const yearData = this.totalWithCount(this._data.length)
         const monthData = this.totalWithCount(30);
         const weekData = this.totalWithCount(7);
+        const restDays = de.getYearDays(de.getNow().getFullYear()) - this._data.length;
         return [
-            `今年共计学习${this._data.length}天！`,
+            `今年共计学习${this._data.length}天！距离结束还剩${restDays}天！`,
             `今年学习时间共计${yearData.accTimes}小时，今年平均每日学习时间${yearData.aveTime}小时;`,
             `最近一月学习时间共计${monthData.accTimes}小时，最近一月平均每日学习时间${monthData.aveTime}小时;`,
             `最近一周学习时间共计${weekData.accTimes}小时，最近一周平均每日学习时间${weekData.aveTime}小时;`,
@@ -87,6 +89,3 @@ export function useTotal() {
 
     return {handleChange, save, read, totalData}
 }
-
-
-

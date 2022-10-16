@@ -5,6 +5,7 @@ import {createLog, createToString} from "../../../utils";
 import styles from './index.module.scss';
 import {Button, Input, Select} from "../../../components";
 import _ from 'lodash'
+import {RenderElement} from "../../../types";
 
 // main();
 
@@ -203,7 +204,7 @@ export default function IndexDBDemo() {
     </div>)
 };
 
-function Row(props: { children: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined; }){
+function Row(props: { children: RenderElement }){
     return <div style={{margin:12}}>
         {props.children}
     </div>

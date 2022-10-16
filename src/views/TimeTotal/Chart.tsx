@@ -66,7 +66,7 @@ function useOption(total:Total){
             dataZoom: [
                 {
                     show: true,
-                    start: 90,
+                    start: 0,
                     end: 100
                 },
             ],
